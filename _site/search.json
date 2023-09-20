@@ -107,29 +107,29 @@
   {
     "objectID": "proposal.html",
     "href": "proposal.html",
-    "title": "Proposal title",
+    "title": "Tornado Dataset Analysis",
     "section": "",
     "text": "library(tidyverse)"
   },
   {
     "objectID": "proposal.html#dataset",
     "href": "proposal.html#dataset",
-    "title": "Proposal title",
+    "title": "Tornado Dataset Analysis",
     "section": "Dataset",
-    "text": "Dataset\nA brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.\nMake sure to load the data and use inline code for some of this information."
+    "text": "Dataset\n\ntornados &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-05-16/tornados.csv')\n\nAbout the data-set: The data-set contains information about tornadoes in the United States. Each row represents a specific tornado event, and the columns provide various attributes related to each tornado event. The data-set appears to be a compilation of tornado data, likely sourced from various weather monitoring agencies or organizations responsible for tracking severe weather events.\nDimensions:\nThe data-set likely contains multiple rows, each representing a unique tornado event, and 27 columns providing information about each event.\nReason for Choosing:\nThis data-set could be valuable for studying and analyzing tornado events in the United States. It provides a wide range of information about each tornado, including location, magnitude, impact, and other relevant details. It could be used for various analytical purposes, such as studying trends in tornado occurrences, understanding their impacts, and potentially even for building predictive models related to severe weather events."
   },
   {
     "objectID": "proposal.html#questions",
     "href": "proposal.html#questions",
-    "title": "Proposal title",
+    "title": "Tornado Dataset Analysis",
     "section": "Questions",
-    "text": "Questions\nThe two questions you want to answer."
+    "text": "Questions\n1) Are there any patterns in the magnitude of tornadoes based on location or time of year? (Intensity (magnitude) of tornados in each state. )\n2) How many tornadoes affected multiple states, and which states are most commonly affected together?"
   },
   {
     "objectID": "proposal.html#analysis-plan",
     "href": "proposal.html#analysis-plan",
-    "title": "Proposal title",
+    "title": "Tornado Dataset Analysis",
     "section": "Analysis plan",
-    "text": "Analysis plan\n\nA plan for answering each of the questions including the variables involved, variables to be created (if any), external data to be merged in (if any)."
+    "text": "Analysis plan\n\nQuestion 1: Are there any patterns in the magnitude of tornadoes based on location or time of year?*\nAnalysis Plan:\nVariables Involved:\n- `mag`: Magnitude of tornadoes (F scale or EF scale).\n- `st`: Two-letter postal abbreviation for the state.\n- `yr`: Year.\nSteps:\n1. Group the data by `st` and `yr`.\n2. Calculate summary statistics for `mag` within each group (e.g., mean, median, maximum).\n3. Create visualizations such as box plots, histograms, or heatmaps to explore the distribution of tornado magnitudes by state and year.\nQuestion 2: How many tornadoes affected multiple states, and which states are most commonly affected together?*\nAnalysis Plan:\nVariables Involved:\n- `om`: Tornado number (ID).\n- `ns`: Number of states affected by the tornado.\n- `sn`: State number for this row.\n- `st`: Two-letter postal abbreviation for the state.\nSteps:\n1. Filter the data-set to include only rows where `ns` is greater than 1 (indicating tornadoes affecting multiple states).\n2. For each tornado (`om`), identify the unique combination of states (`st`) affected.\n3. Count the frequency of occurrence for each unique combination of states.\n4. Create visualizations like heatmaps or barplot to visualize the co-occurrence patterns of states."
   }
 ]
