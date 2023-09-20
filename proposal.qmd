@@ -5,7 +5,7 @@ format: html
 editor: visual
 ---
 
-```{r warning=FALSE,message=FALSE}
+```{r load-pkgs,warning=FALSE,message=FALSE}
 #| label: load-pkgs
 #| message: false
 #| 
@@ -18,7 +18,7 @@ library(kableExtra)
 
 ## Dataset
 
-```{r load-pkgs, warning=FALSE,message=FALSE}
+```{r dataset, warning=FALSE,message=FALSE}
 #| label: load-dataset
 #| message: false
 tornados <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-05-16/tornados.csv')
