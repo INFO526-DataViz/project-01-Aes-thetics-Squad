@@ -8,7 +8,12 @@ editor: visual
 ```{r}
 #| label: load-pkgs
 #| message: false
+#| 
 library(tidyverse)
+chooseCRANmirror(ind=1)
+install.packages("kableExtra")
+library(kableExtra)
+
 ```
 
 ## Dataset
