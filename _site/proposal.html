@@ -187,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>package 'kableExtra' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-    C:\Users\anshk\AppData\Local\Temp\Rtmpc7bo0m\downloaded_packages</code></pre>
+    C:\Users\anshk\AppData\Local\Temp\RtmpIh86EX\downloaded_packages</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -196,9 +196,8 @@ The downloaded binary packages are in
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>tornados <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-05-16/tornados.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>About the data-set: The data-set contains information about tornadoes in the United States. Each row represents a specific tornado event, and the columns provide various attributes related to each tornado event. The data-set appears to be a compilation of tornado data, likely sourced from various weather monitoring agencies or organizations responsible for tracking severe weather events.</p>
-<p>Dimensions:</p>
-<p>The data-set likely contains multiple rows, each representing a unique tornado event, and 27 columns providing information about each event.</p>
+<p>About the data-set:</p>
+<p>The data-set contains information about tornadoes in the United States. Each row represents a specific tornado event, and the columns provide various attributes related to each tornado event like time of occurence, magnitude on F scale, number of injuries, fatalities, estimated property loss in dollars, longitudes and latitudes. The data-set has a total of 68693 events recorded, each having 27 attributes.The presented data-set was generated from a data-set created by the Storm Prediction Center of NOAA. The period of the data ranges from 1950 to 2022.</p>
 <p>Reason for Choosing:</p>
 <p>This data-set could be valuable for studying and analyzing tornado events in the United States. It provides a wide range of information about each tornado, including location, magnitude, impact, and other relevant details. It could be used for various analytical purposes, such as studying trends in tornado occurrences, understanding their impacts, and potentially even for building predictive models related to severe weather events.</p>
 </section>
@@ -209,30 +208,21 @@ The downloaded binary packages are in
 </section>
 <section id="analysis-plan" class="level2">
 <h2 class="anchored" data-anchor-id="analysis-plan">Analysis plan</h2>
-<ul>
-<li><p>Question 1: Are there any patterns in the magnitude of tornadoes based on location or time of year?*</p>
+<p><strong>Question 1</strong>: Are there any patterns in the magnitude of tornadoes based on location or time of year?</p>
 <p>Analysis Plan:</p>
 <p>Variables Involved:</p>
 <p>- `mag`: Magnitude of tornadoes (F scale or EF scale).</p>
-<p>- `st`: Two-letter postal abbreviation for the state.</p>
+<p>- `st`: Two-letter postal abbreviation for the states</p>
 <p>- `yr`: Year.</p>
-<p>Steps:</p>
-<p>1. Group the data by `st` and `yr`.</p>
-<p>2. Calculate summary statistics for `mag` within each group (e.g., mean, median, maximum).</p>
-<p>3. Create visualizations such as box plots, histograms, or heatmaps to explore the distribution of tornado magnitudes by state and year.</p></li>
-<li><p>Question 2: How many tornadoes affected multiple states, and which states are most commonly affected together?*</p>
+<p>We first group the data state-wise using ‘st’ variable and year-wise using ‘yr’ variable, then calculate the summary statistics on both the grouped data separately. From the obtained results we check for any particular states having undergone multiple variations over time and select a few such states along with few other states for further plotting. Then for each of these states we plan to show the variations in tornado intensities over the course of time using alley maps visualization.</p>
+<p><strong>Question 2:</strong> How many tornadoes affected multiple states, and which states are most commonly affected together?</p>
 <p>Analysis Plan:</p>
 <p>Variables Involved:</p>
 <p>- `om`: Tornado number (ID).</p>
 <p>- `ns`: Number of states affected by the tornado.</p>
 <p>- `sn`: State number for this row.</p>
 <p>- `st`: Two-letter postal abbreviation for the state.</p>
-<p>Steps:</p>
-<p>1. Filter the data-set to include only rows where `ns` is greater than 1 (indicating tornadoes affecting multiple states).</p>
-<p>2. For each tornado (`om`), identify the unique combination of states (`st`) affected.</p>
-<p>3. Count the frequency of occurrence for each unique combination of states.</p>
-<p>4. Create visualizations like heatmaps or barplot to visualize the co-occurrence patterns of states.</p></li>
-</ul>
+<p>To analyze tornadoes impacting multiple states in the dataset, we’ll first filter for tornadoes affecting more than one state (`ns` &gt; 1). Then, for each tornado (`om`), we’ll identify the unique combinations of states (`st`) it affected. By counting the occurrence frequency of these combinations, we can discern patterns. To visualize these co-occurrence patterns effectively, we can employ heatmaps or barplots, showcasing how often specific state combinations experience tornadoes. This approach allows us to gain insights into the multi-state impact of tornadoes and uncover recurring patterns in the data.</p>
 
 
 </section>

@@ -5,7 +5,7 @@ format: html
 editor: visual
 ---
 
-```{r}
+```{r warning=FALSE,message=FALSE}
 #| label: load-pkgs
 #| message: false
 #| 
@@ -18,17 +18,15 @@ library(kableExtra)
 
 ## Dataset
 
-```{r}
+```{r load-pkgs, warning=FALSE,message=FALSE}
 #| label: load-dataset
 #| message: false
 tornados <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-05-16/tornados.csv')
 ```
 
-About the data-set: The data-set contains information about tornadoes in the United States. Each row represents a specific tornado event, and the columns provide various attributes related to each tornado event. The data-set appears to be a compilation of tornado data, likely sourced from various weather monitoring agencies or organizations responsible for tracking severe weather events.
+About the data-set:
 
-Dimensions:
-
-The data-set likely contains multiple rows, each representing a unique tornado event, and 27 columns providing information about each event.
+The data-set contains information about tornadoes in the United States. Each row represents a specific tornado event, and the columns provide various attributes related to each tornado event like time of occurence, magnitude on F scale, number of injuries, fatalities, estimated property loss in dollars, longitudes and latitudes. The data-set has a total of 68693 events recorded, each having 27 attributes.The presented data-set was generated from a data-set created by the Storm Prediction Center of NOAA. The period of the data ranges from 1950 to 2022.
 
 Reason for Choosing:
 
@@ -42,46 +40,32 @@ This data-set could be valuable for studying and analyzing tornado events in the
 
 ## Analysis plan
 
--   Question 1: Are there any patterns in the magnitude of tornadoes based on location or time of year?\*
+**Question 1**: Are there any patterns in the magnitude of tornadoes based on location or time of year?
 
-    Analysis Plan:
+Analysis Plan:
 
-    Variables Involved:
+Variables Involved:
 
-    \- \`mag\`: Magnitude of tornadoes (F scale or EF scale).
+\- \`mag\`: Magnitude of tornadoes (F scale or EF scale).
 
-    \- \`st\`: Two-letter postal abbreviation for the state.
+\- \`st\`: Two-letter postal abbreviation for the states
 
-    \- \`yr\`: Year.
+\- \`yr\`: Year.
 
-    Steps:
+We first group the data state-wise using 'st' variable and year-wise using 'yr' variable, then calculate the summary statistics on both the grouped data separately. From the obtained results we check for any particular states having undergone multiple variations over time and select a few such states along with few other states for further plotting. Then for each of these states we plan to show the variations in tornado intensities over the course of time using alley maps visualization.
 
-    1\. Group the data by \`st\` and \`yr\`.
+**Question 2:** How many tornadoes affected multiple states, and which states are most commonly affected together?
 
-    2\. Calculate summary statistics for \`mag\` within each group (e.g., mean, median, maximum).
+Analysis Plan:
 
-    3\. Create visualizations such as box plots, histograms, or heatmaps to explore the distribution of tornado magnitudes by state and year.
+Variables Involved:
 
--   Question 2: How many tornadoes affected multiple states, and which states are most commonly affected together?\*
+\- \`om\`: Tornado number (ID).
 
-    Analysis Plan:
+\- \`ns\`: Number of states affected by the tornado.
 
-    Variables Involved:
+\- \`sn\`: State number for this row.
 
-    \- \`om\`: Tornado number (ID).
+\- \`st\`: Two-letter postal abbreviation for the state.
 
-    \- \`ns\`: Number of states affected by the tornado.
-
-    \- \`sn\`: State number for this row.
-
-    \- \`st\`: Two-letter postal abbreviation for the state.
-
-    Steps:
-
-    1\. Filter the data-set to include only rows where \`ns\` is greater than 1 (indicating tornadoes affecting multiple states).
-
-    2\. For each tornado (\`om\`), identify the unique combination of states (\`st\`) affected.
-
-    3\. Count the frequency of occurrence for each unique combination of states.
-
-    4\. Create visualizations like heatmaps or barplot to visualize the co-occurrence patterns of states.
+To analyze tornadoes impacting multiple states in the dataset, we'll first filter for tornadoes affecting more than one state (\`ns\` \> 1). Then, for each tornado (\`om\`), we'll identify the unique combinations of states (\`st\`) it affected. By counting the occurrence frequency of these combinations, we can discern patterns. To visualize these co-occurrence patterns effectively, we can employ heatmaps or barplots, showcasing how often specific state combinations experience tornadoes. This approach allows us to gain insights into the multi-state impact of tornadoes and uncover recurring patterns in the data.
