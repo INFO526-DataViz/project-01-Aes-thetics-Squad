@@ -109,7 +109,7 @@
     "href": "proposal.html",
     "title": "Tornado Dataset Analysis",
     "section": "",
-    "text": "library(tidyverse)\nchooseCRANmirror(ind=1)\ninstall.packages(\"kableExtra\")\n\npackage 'kableExtra' successfully unpacked and MD5 sums checked\n\nThe downloaded binary packages are in\n    C:\\Users\\anshk\\AppData\\Local\\Temp\\RtmpIh86EX\\downloaded_packages\n\nlibrary(kableExtra)"
+    "text": "library(tidyverse)\nchooseCRANmirror(ind=1)\ninstall.packages(\"kableExtra\")\n\npackage 'kableExtra' successfully unpacked and MD5 sums checked\n\nThe downloaded binary packages are in\n    C:\\Users\\anshk\\AppData\\Local\\Temp\\RtmpIXvmfI\\downloaded_packages\n\nlibrary(kableExtra)"
   },
   {
     "objectID": "proposal.html#dataset",
