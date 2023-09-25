@@ -1,5 +1,5 @@
 ---
-title: "Tornado Dataset Analysis"
+title: "Unraveling Tornado Trends"
 subtitle: "Proposal"
 format: html
 editor: visual
@@ -26,7 +26,7 @@ tornados <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/t
 
 About the data-set:
 
-The data-set contains information about tornadoes in the United States. Each row represents a specific tornado event, and the columns provide various attributes related to each tornado event like time of occurence, magnitude on F scale, number of injuries, fatalities, estimated property loss in dollars, longitudes and latitudes. The data-set has a total of 68693 events recorded, each having 27 attributes.The presented data-set was generated from a data-set created by the Storm Prediction Center of NOAA. The period of the data ranges from 1950 to 2022.
+The data-set contains information about tornadoes in the United States. Each row represents a specific tornado event, and the columns provide various attributes related to each tornado event like time of occurence, magnitude on F scale, number of injuries, fatalities, estimated property loss in dollars, longitudes and latitudes. The data-set has a total of 68693 events recorded as rows, each having 27 attributes as columns.The presented data-set was generated from a data-set created by the Storm Prediction Center of NOAA. The period of the data ranges from 1950 to 2022.
 
 Reason for Choosing:
 
@@ -34,7 +34,7 @@ This data-set could be valuable for studying and analyzing tornado events in the
 
 ## Questions
 
-1\) Are there any patterns in the magnitude of tornadoes based on location or time of year? (Intensity (magnitude) of tornados in each state. )
+1\) Are there any patterns in the magnitude of tornadoes based on location or time of year? (Intensity (magnitude) of tornadoes in each state. )
 
 2\) How many tornadoes affected multiple states, and which states are most commonly affected together?
 
