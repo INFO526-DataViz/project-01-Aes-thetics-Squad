@@ -5,10 +5,7 @@ format: html
 editor: visual
 ---
 
-```{r load-pkgs,warning=FALSE,message=FALSE}
-#| label: load-pkgs
-#| message: false
-#| 
+```{r load-pkgs,warning=FALSE,message=FALSE, include=FALSE}
 library(tidyverse)
 chooseCRANmirror(ind=1)
 install.packages("kableExtra")
@@ -18,15 +15,13 @@ library(kableExtra)
 
 ## Dataset
 
-```{r dataset, warning=FALSE,message=FALSE}
-#| label: load-dataset
-#| message: false
+```{r dataset, warning=FALSE,message=FALSE, include=FALSE}
 tornados <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-05-16/tornados.csv')
 ```
 
 About the data-set:
 
-The data-set contains information about tornadoes in the United States. Each row represents a specific tornado event, and the columns provide various attributes related to each tornado event like time of occurence, magnitude on F scale, number of injuries, fatalities, estimated property loss in dollars, longitudes and latitudes. The data-set has a total of 68693 events recorded as rows, each having 27 attributes as columns.The presented data-set was generated from a data-set created by the Storm Prediction Center of NOAA. The period of the data ranges from 1950 to 2022.
+The data-set contains information about tornadoes in the United States. Each row represents a specific tornado event, and the columns provide various attributes related to each tornado event like time of occurrence, magnitude on F scale, number of injuries, fatalities, estimated property loss in dollars, longitudes and latitudes. The data-set has a total of 68693 events recorded as rows, each having 27 attributes as columns.The presented data-set was generated from a data-set created by the Storm Prediction Center of NOAA. The period of the data ranges from 1950 to 2022.
 
 Reason for Choosing:
 
@@ -46,11 +41,11 @@ Analysis Plan:
 
 Variables Involved:
 
-\- \`mag\`: Magnitude of tornadoes (F scale or EF scale).
+\- mag: Magnitude of tornadoes i.e. F scale or EF scale(EF - Enhanced Fujita scale is being used from 2007).
 
-\- \`st\`: Two-letter postal abbreviation for the states
+\- st: Two-letter postal abbreviation for the states
 
-\- \`yr\`: Year.
+\- yr: Year.
 
 We first group the data state-wise using 'st' variable and year-wise using 'yr' variable, then calculate the summary statistics on both the grouped data separately. From the obtained results we check for any particular states having undergone multiple variations over time and select a few such states along with few other states for further plotting. Then for each of these states we plan to show the variations in tornado intensities over the course of time using alley maps visualization.
 
@@ -60,12 +55,12 @@ Analysis Plan:
 
 Variables Involved:
 
-\- \`om\`: Tornado number (ID).
+\- om: Tornado number (ID).
 
-\- \`ns\`: Number of states affected by the tornado.
+\- ns: Number of states affected by the tornado.
 
-\- \`sn\`: State number for this row.
+\- sn: State number for this row.
 
-\- \`st\`: Two-letter postal abbreviation for the state.
+\- st: Two-letter postal abbreviation for the state.
 
-To analyze tornadoes impacting multiple states in the dataset, we'll first filter for tornadoes affecting more than one state (\`ns\` \> 1). Then, for each tornado (\`om\`), we'll identify the unique combinations of states (\`st\`) it affected. By counting the occurrence frequency of these combinations, we can discern patterns. To visualize these co-occurrence patterns effectively, we can employ heatmaps or barplots, showcasing how often specific state combinations experience tornadoes. This approach allows us to gain insights into the multi-state impact of tornadoes and uncover recurring patterns in the data.
+To analyze tornadoes impacting multiple states in the dataset, we'll first filter for tornadoes affecting more than one state (ns \> 1). Then, for each tornado (om), we'll identify the unique combinations of states (st) it affected. By counting the occurrence frequency of these combinations, we can discern patterns. To visualize these co-occurrence patterns effectively, we can employ heat-maps or barplots, showcasing how often specific state combinations experience tornadoes. This approach allows us to gain insights into the multi-state impact of tornadoes and uncover recurring patterns in the data.
