@@ -1,7 +1,7 @@
 ---
-title: "Project title"
+title: "Unraveling Tornado Trends"
 subtitle: "INFO 526 - Project 1"
-author: "Team name"
+author: "Aes-thetics-Squad"
 format: html
 editor: visual
 ---
