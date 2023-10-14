@@ -120,6 +120,17 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#abstract">Abstract</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#question-1-are-there-any-patterns-in-the-magnitude-of-tornadoes-based-on-location-or-time-of-year" id="toc-question-1-are-there-any-patterns-in-the-magnitude-of-tornadoes-based-on-location-or-time-of-year" class="nav-link" data-scroll-target="#question-1-are-there-any-patterns-in-the-magnitude-of-tornadoes-based-on-location-or-time-of-year">Question 1: Are there any patterns in the magnitude of tornadoes based on location or time of year?</a>
+  <ul class="collapse">
+  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1">Introduction</a></li>
+  <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">Approach</a></li>
+  </ul></li>
+  <li><a href="#question-2-analyzing-the-trends-in-fatalities-in-different-states" id="toc-question-2-analyzing-the-trends-in-fatalities-in-different-states" class="nav-link" data-scroll-target="#question-2-analyzing-the-trends-in-fatalities-in-different-states">Question 2: Analyzing the trends in fatalities in different states</a>
+  <ul class="collapse">
+  <li><a href="#introduction-2" id="toc-introduction-2" class="nav-link" data-scroll-target="#introduction-2">Introduction</a></li>
+  <li><a href="#approach-1" id="toc-approach-1" class="nav-link" data-scroll-target="#approach-1">Approach</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -152,9 +163,37 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="abstract" class="level2">
 <h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
-<p>Add project abstract here.</p>
+<p>This data visualization project centers on unraveling patterns in tornado occurrences and their impacts across the United States. Leveraging a comprehensive dataset encompassing 68,693 tornado events from 1950 to 2022, we delve into two critical aspects: tornado magnitude patterns and multi-state impacts. The project aims to discern if specific states undergo recurring variations in tornado intensity over time and to identify the most common state combinations affected by tornadoes. Through innovative visualizations like alley maps and co-occurrence heatmaps, we seek to provide a clearer understanding of tornado phenomena, enabling informed decision-making and proactive disaster management strategies.</p>
+</section>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>The aim of this project is to analyse the tornadoes data provided from NOAA’s National Weather Service Storm Prediction Center&nbsp;<a href="https://www.spc.noaa.gov/wcm/#data">Severe Weather Maps, Graphics, and Data Page</a>. And the dataset is provided from the tidytuesday github page. We utilize the provided dataset on tornadoes in the United States, encompassing essential details such as location, magnitude, impact, fatalities, injuries, date, time, year, etc.</p>
+<p>Tornadoes are formidable natural phenomena that pose significant risks and challenges, particularly in the United States. To gain a deeper understanding of these occurrences, we delve into a rich dataset that provides a detailed account of tornado events.This dataset equips us with a treasure trove of information spanning over seven decades. Through data visualization techniques, we strive to convey our findings effectively, aiding in disaster preparedness, risk assessment, and the advancement of meteorological understanding.</p>
+</section>
+<section id="question-1-are-there-any-patterns-in-the-magnitude-of-tornadoes-based-on-location-or-time-of-year" class="level2">
+<h2 class="anchored" data-anchor-id="question-1-are-there-any-patterns-in-the-magnitude-of-tornadoes-based-on-location-or-time-of-year">Question 1: Are there any patterns in the magnitude of tornadoes based on location or time of year?</h2>
+<section id="introduction-1" class="level3">
+<h3 class="anchored" data-anchor-id="introduction-1">Introduction</h3>
+<p>Understanding the variations in tornado intensity is vital for assessing their potential impact and devising effective disaster response plans. In this section, we explore the patterns in tornado magnitude concerning geographical location (states) and how they fluctuate across different times of the year. By examining these patterns, we aim to uncover insights that can aid in predicting and preparing for tornadoes of varying intensities, contributing to enhanced public safety and disaster management.</p>
+</section>
+<section id="approach" class="level3">
+<h3 class="anchored" data-anchor-id="approach">Approach</h3>
+<p>Understanding the dynamics of tornado magnitude is critical for assessing the severity of these natural disasters. In our analysis, we utilize essential variables such as tornado magnitude, states, and years. By focusing on these parameters, we aim to uncover patterns in tornado intensity across various states and seasons. To visualize these patterns, we employ geospatial visualization techniques, plotting the tornado magnitudes on a US map. Specifically, we select five states that exhibit high magnitude variations and plot tornado intensity for each of these states. Through these plots, we aim to identify distinct trends in tornado magnitude, allowing for a deeper understanding of how tornadoes manifest in these states.</p>
+<p>Tornado intensity can vary significantly across geographical regions and throughout the year. To delve deeper, we analyze the tornado data with a focus on the Enhanced Fujita (EF) scale, examining how the scale manifests concerning state-level occurrences and seasonal fluctuations. By observing the patterns in tornado intensity and their geographic spread, we can derive insights into the regions most susceptible to severe tornadoes. This multifaceted approach aims to uncover valuable insights into tornado behaviors and their potential implications for disaster preparedness and response strategies.</p>
+</section>
+</section>
+<section id="question-2-analyzing-the-trends-in-fatalities-in-different-states" class="level2">
+<h2 class="anchored" data-anchor-id="question-2-analyzing-the-trends-in-fatalities-in-different-states">Question 2: Analyzing the trends in fatalities in different states</h2>
+<section id="introduction-2" class="level3">
+<h3 class="anchored" data-anchor-id="introduction-2">Introduction</h3>
+<p>Tornadoes, besides causing property damage, often result in injuries and fatalities, making an analysis of their impact crucial. In this section, we focus on understanding the trends in fatalities caused by tornadoes across various states in the United States. By examining how fatality rates vary across states and over time, we aim to identify states that are more vulnerable to severe tornado impacts. This analysis can offer valuable insights for improving disaster response strategies and saving lives in tornado-prone regions.</p>
+</section>
+<section id="approach-1" class="level3">
+<h3 class="anchored" data-anchor-id="approach-1">Approach</h3>
+<p>Understanding the impact of tornadoes on human life, specifically fatalities, is paramount in devising strategies to minimize casualties. For this analysis, we primarily focus on the variable of fatalities and the years in which they occurred. To visualize these trends, we plot the fatalities for a select group of states, including Texas, Florida, Oklahoma, Kansas, and Nebraska. We emphasize a longitudinal view by plotting the fatalities over every 20 years, highlighting significant trends in fatality rates. Notably, we identify Texas as a state with consistently high fatalities and emphasize it in our visualization. This in-depth exploration of fatality trends across these states provides valuable insights into disaster response and preparedness, ultimately striving to minimize the loss of life during tornado events.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
