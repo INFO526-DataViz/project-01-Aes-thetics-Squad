@@ -44,10 +44,9 @@ From the area chart we saw that there are 2 peaks in the years 1953 and 2011. So
 
 ### Analysis
 
-```{{r setup,warning=FALSE, message=FALSE, output=FALSE}}
-
+```{r Q2code, warning=FALSE, message=FALSE, echo=FALSE}
 if(!require(pacman))
-
+  
   install.packages("pacman")
 
 pacman::p_load(ggplot2,dplyr)
@@ -55,36 +54,24 @@ pacman::p_load(ggplot2,dplyr)
 #suppress warning
 
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
-``
-
-```{{r loading data}}
 tornadoes <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-05-16/tornados.csv', show_col_types = FALSE)
 tornadoes <- na.omit(tornadoes)
-head(tornadoes)
-```
 
-```{{r data wrangling,message=FALSE,warning=FALSE}}
 #creating new column called state name
 state_mapping <- setNames(state.name, state.abb)
 
 # Add a new column "state_name" to the tornadoes dataset
 tornadoes$state_name <- state_mapping[tornadoes$st]
 
-# View the modified dataset
-head(tornadoes)
-```
-
-```{{r area plot, message=FALSE, warning=FALSE}}
 total_fatalities <- aggregate(fat ~ yr, data = tornadoes, sum)
 
-# Create the area plot
 ggplot(total_fatalities, aes(x = yr, y = fat)) +
   geom_area(fill="#8B0000")+
   geom_line(color="#8B0000") +
   labs(title = "Total Fatalities Over the Years",
        x = "Year",
        y = "Total Fatalities") +
-   scale_x_continuous(
+  scale_x_continuous(
     breaks = seq(1950, 2022, by = 10),
     limits = c(1950, 2022))+
   theme_minimal()+
@@ -92,28 +79,24 @@ ggplot(total_fatalities, aes(x = yr, y = fat)) +
            size = 4)+
   annotate("text",x=2014,y=510, label= "2011", color = '#8B0000',
            size = 4)
-```
 
-```{{r bar plot, message=FALSE, warning=FALSE}}
 total_fatalities <- tornadoes |>
   filter(yr %in% c(1953,2011))|>
   aggregate(fat ~ state_name, sum) |>
   arrange(desc(fat)) |>
   filter(fat>0)
-  
 
-# Create the bar plot
 ggplot(total_fatalities, aes(x = reorder(state_name, fat), y = fat)) +
   geom_bar(stat="identity",fill="#8B0000") +
   geom_text(aes(label=fat), vjust=0.2,hjust=0,size=3) +
   coord_flip()+
-   labs(x=NULL,
-        y=NULL,
-        title = "Total fatalities",
-        subtitle="In the years 1953 and 2011",
-        caption = "States not listed didnot record any deaths by tornadoes")+
+  labs(x=NULL,
+       y=NULL,
+       title = "Total fatalities",
+       subtitle="In the years 1953 and 2011",
+       caption = "States not listed didnot record any deaths by tornadoes")+
   theme_minimal()+
-    theme(
+  theme(
     panel.grid.major.x = element_blank(),
     panel.grid.minor.x = element_blank(),
     axis.text.x = element_blank()
