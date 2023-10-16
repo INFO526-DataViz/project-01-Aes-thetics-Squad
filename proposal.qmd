@@ -49,18 +49,16 @@ Variables Involved:
 
 We first group the data state-wise using "st" variable and year-wise using "yr" variable, then calculate the summary statistics on both the grouped data separately. From the obtained results we check for any particular states having undergone multiple variations over time and select a few such states along with few other states for further plotting. Then for each of these states we plan to show the variations in tornado intensities over the course of time using alley maps visualization.
 
-**Question 2:** How many tornadoes affected multiple states, and which states are most commonly affected together?
+**Question 2:** Analyzing the trends in fatalities in different state
 
 Analysis Plan:
 
 Variables Involved:
 
-\- "om": \[integer\] Tornado number (ID).
+\- "fat": \[integer\] Number of fatalities.
 
-\- "ns": \[integer\] Number of states affected by the tornado.
-
-\- "sn": \[integer\] State number for this row.
+\- "yr": \[integer\] Year of the tornado occurred.
 
 \- "st": \[character\] Two-letter postal abbreviation for the state.
 
-To analyze tornadoes impacting multiple states in the dataset, we'll first filter for tornadoes affecting more than one state ("ns" \> 1). Then, for each tornado ("om"), we'll identify the unique combinations of states ("st") it affected. By counting the occurrence frequency of these combinations, we can discern patterns. To visualize these co-occurrence patterns effectively, we can employ heat-maps or barplots, showcasing how often specific state combinations experience tornadoes. This approach allows us to gain insights into the multi-state impact of tornadoes and uncover recurring patterns in the data.
+To analyze trends in fatalities caused by tornadoes across different states, we will focus on the variables "fat" (number of fatalities), "yr" (year), and "st" (state). First, we will aggregate the fatality data for each state, summarizing the total fatalities for each year. Next, we will select five specific states - Texas, Florida, Oklahoma, Kansas, and Nebraska - known for experiencing severe tornadoes, and plot the fatality trends over 20-year intervals. We will use a line plot to visualize the variations in fatalities over time for these states, emphasizing Texas, the state with consistently high fatalities. This approach will provide valuable insights into the trends of tornado-related fatalities in key states, aiding in disaster response planning and resources allocation.
