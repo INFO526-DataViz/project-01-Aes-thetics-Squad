@@ -211,7 +211,7 @@ invisible(saveGIF({
 
 ### Discussion
 
-The first set of visualizations, that is the line plot, is focused on tornado magnitude trends over the years. We observed fluctuations in the mean tornado magnitude per year, with peaks and valleys throughout the decades. We can see that the intensity of tornadoes decreased as we moved forward from 1950 to 2022 gradally. From the second line plot we can see that the count of tornadoes increased over time slightly. The trend line in the plot shows this increase effectively from 1950 to 2022. So, from these two line plots, we could say that there were few but intense tornado in the late 1900s while there were more but less intense tornadoes today.
+The first set of visualizations, that is the line plot, is focused on tornado magnitude trends over the years. We observed fluctuations in the mean tornado magnitude per year, with peaks and valleys throughout the decades. We can see that the intensity of tornadoes decreased as we moved forward from 1950 to 2022 gradually. From the second line plot we can see that the count of tornadoes increased over time slightly. The trend line in the plot shows this increase effectively from 1950 to 2022. So, from these two line plots, we could say that there were few but intense tornado in the late 1900s while there were more but less intense tornadoes today.
 
 Furthermore, examining tornado magnitudes in different categories (EF scale) across distinct year categories (1950-1961, 1962-1973, 1974-1985, 1986-1997, 1998-2009, 2010-2022) through a stacked bar plot illuminated the distribution of tornado intensities over time. It interprets that as the time progressed the intensity of the tornadoes decreased, but the number of tornadoes increased.
 
