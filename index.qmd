@@ -35,6 +35,7 @@ Lastly, we delve into a categorical analysis of tornado intensity based on the E
 ### Analysis
 
 ```{r Q1code, message=FALSE, warning=FALSE, echo=FALSE}
+#Loading the required packages using pacman
 if(!require(pacman))
   install.packages("pacman")
 
@@ -52,24 +53,68 @@ pacman::p_load(tidyverse,
                png
 )
 
-tornados <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-05-16/tornados.csv', show_col_types = FALSE)
-tornados <- tornados[complete.cases(tornados),]
+#Reading the dataset and adding a new column to the data
+tornados <- readr::read_csv('data/tornados.csv', show_col_types = FALSE)
+tornados <- tornados[complete.cases(tornados),] #Decided to remove the NA values
 tornados <- tornados |>
   mutate(
-  year_category=case_when(
-(yr>=1950 & yr<=1961) ~ "1950-1961",
-(yr>=1962 & yr<=1973) ~ "1962-1973",
-(yr>=1974 & yr<=1985) ~ "1974-1985",
-(yr>=1986 & yr<=1997) ~ "1986-1997",
-(yr>=1998 & yr<=2009) ~ "1998-2009",
-(yr>=2010 & yr<=2022) ~ "2010-2022"
+  year_category = case_when(
+(yr >= 1950 & yr <= 1961) ~ "1950-1961",
+(yr >= 1962 & yr <= 1973) ~ "1962-1973",
+(yr >= 1974 & yr <= 1985) ~ "1974-1985",
+(yr >= 1986 & yr <= 1997) ~ "1986-1997",
+(yr >= 1998 & yr <= 2009) ~ "1998-2009",
+(yr >= 2010 & yr <= 2022) ~ "2010-2022"
 )
 )
 
+#Line plot showing magnitude trends
+annual_mean <- tornados %>%
+  group_by(yr) %>%
+  summarise(mean_mag = mean(mag, na.rm = TRUE), count = n(), .groups = "drop")
+mag_plot <- ggplot(data = annual_mean) +
+  geom_line(aes(x = yr, y = mean_mag),linewidth = 1,col="#00A572") +
+  labs(
+    x = "Year",
+    y = "Mean Magnitude per year",
+    title = "Tornado Magnitude Trends Over Time (1950-2022)"
+  ) +
+  theme_minimal()
 
+#Line plot showing count of tornado occurences
+num_plot<-ggplot(data = annual_mean) +
+  geom_line(aes(x = yr, y = count), linewidth = 1, col="#FF69B4") +
+  geom_smooth(aes(x = yr, y = count), method = lm, se=FALSE, col="#1E90FF") +
+  labs(
+    x = "Year",
+    y = "Number of Tornadoes per year",
+    title = "Tornadoes count Over Time (1950-2022)"
+  ) +
+  theme_minimal()
+
+mag_plot
+num_plot
+
+#Bar plot to see the number
+tor_req<-tornados |>
+  group_by(mag, year_category) |>
+  summarize(num = n(),.groups = "drop") |>
+  mutate(mag = factor(mag, levels = c(0,1,2,3,4,5))) |>
+  ungroup()
+
+ggplot(data = tor_req,
+       mapping = aes(fill = mag, y = num, x = year_category))+
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("skyblue1", "#FFA533", "#FF5733", "#33FF57", "yellow", "black"), name = "Magnitude") +
+  labs(y = "Number of occurences", x = "Year categories", 
+       title = "Tornado Magnitude Distribution over 12 year interval") +
+  theme_minimal() +
+  coord_flip()
+
+# Density plots for Tornado occurences
 tornado_sf <- st_as_sf(tornados, coords = c("slon", "slat"), crs = 4326)
 
-# Group the data by state and using standard deviation to calculate variations in magnitudes
+# Grouping the data by state and using standard deviation to calculate variations in magnitudes
 state_variations <- tornado_sf %>%
   group_by(st) %>%
   summarize(
@@ -78,7 +123,7 @@ state_variations <- tornado_sf %>%
   ) %>%
   ungroup()
 
-# Select the top 5 states with the highest variations
+# Selecting the top 5 states with the highest magnitude variations
 top_5_states <- state_variations %>%
   top_n(5, magnitude_variation)
 
@@ -93,7 +138,7 @@ xlim <- range(state_map$long)
 ylim <- range(state_map$lat)
 
 
-
+#Density plot generation
 generate_density_plot <- function(year_range, plot_title) {
   req_tor <- tornados[tornados$st %in% top_5_states$st & tornados$yr %in% year_range, ]
   density_data <- kde2d(req_tor$slon, req_tor$slat, n = 100)
@@ -102,7 +147,8 @@ generate_density_plot <- function(year_range, plot_title) {
  
 ggplot() +
     geom_contour(data=density_df, aes(x = x, y = y, z = density, color = after_stat(level)), bins = 25) +
-    scale_color_gradient(low = "blue", high = "red1", limits = c(0.005, 0.020), oob = scales::squish) +
+    scale_color_gradient(low = "blue", high = "red1", limits = c(0.005, 0.020), 
+                         oob = scales::squish, name = "Density") +
     labs(title = plot_title) +
     geom_polygon(data = us_map, aes(x = long, y = lat, group = group), color = "black", fill = NA) +
     borders("state", colour = "black") +
@@ -120,6 +166,7 @@ years <- list(
   seq(2010, 2022)
 )
 
+#Saving the plots as images
 save_plot_as_image <- function(plot, filename) {
   ggsave(plot, filename = paste0("images/", filename), width = 6, 
          height = 6, units = "in", bg = "white")
@@ -135,74 +182,29 @@ for (i in seq_along(years)) {
   save_plot_as_image(plots[[i]], filenames[i])
 }
 
-
-
-
+#For display
 plots[[1]] + plots[[2]] + plot_layout(guides = "collect")
 plots[[3]] +plots[[4]] + plot_layout(guides = "collect")
 plots[[5]] + plots[[6]] + plot_layout(guides = "collect")
 
 
-
-
+#To create a gif
 image_paths <- list.files("images", full.names = TRUE)
+selected_images <- grep("^plot[1-6]\\.png$", basename(image_paths), value = TRUE)
+selected_images <- file.path("images",selected_images)
 
-# Create an animated GIF
+# Creating an animated GIF
 ani.options(ani.width = 1000, ani.height = 1000, res = 1020, "animated_plot.gif")
 
 saveGIF({
-  for (img_path in image_paths) {
+  for (img_path in selected_images) {
     img <- readPNG(img_path)
     plot(0, 0, type = "n", xlim = c(0, 1), ylim = c(0, 1), 
-         xlab = "", ylab = "", main = "Tornado Magnitude Trends", cex.main = 3)
+         xlab = "", ylab = "", main = "Tornado Occurence Density Trends", cex.main = 3)
     rasterImage(img, 0, 0, 1, 1)
   }
 }, interval = 1, movie.name = "animated_plot.gif")
 
-
-annual_mean <- tornados %>%
-  group_by(yr) %>%
-  summarise(mean_mag = mean(mag, na.rm = TRUE), count = n(), .groups = "drop")
-mag_plot <- ggplot(data = annual_mean) +
-  geom_line(aes(x = yr, y = mean_mag),linewidth = 1,col="#00A572") +
-  labs(
-    x = "Year",
-    y = "Mean Magnitude per year",
-    title = "Tornado Magnitude Trends Over Time (1950-2022)"
-  ) +
-  theme_minimal()
-
-num_plot<-ggplot(data = annual_mean) +
-  geom_line(aes(x = yr, y = count), linewidth = 1, col="#FF69B4") +
-  geom_smooth(aes(x = yr, y = count), method = lm,se=FALSE, col="#1E90FF") +
-  labs(
-    x = "Year",
-    y = "Number of Tornadoes per year",
-    title = "Tornadoes count Over Time (1950-2022)"
-  ) +
-  theme_minimal()
-mag_plot
-num_plot
-
-t<-tornados|>
-  group_by(year_category)|>
-  summarize(num = n(), .groups = "drop")
-
-tor_req<-tornados |>
-  group_by(mag, year_category) |>
-  summarize(num = n(),.groups = "drop") |>
-  mutate(mag = factor(mag, levels = c(0,1,2,3,4,5))) |>
-  ungroup()
-
-ggplot(data = tor_req,
-       mapping = aes(fill = mag, y = num, x = year_category))+
-  geom_bar(
-    position = "fill",
-    stat = "identity"
-  ) +
-  scale_fill_manual(values = c("skyblue1", "#FFA533", "#FF5733", "#33FF57", "yellow", "black")) +
-  scale_y_continuous(labels = scales::percent) +
-  coord_flip()
 ```
 
 ### Discussion
