@@ -22,7 +22,13 @@ execute:
 
 # Load packages here
 pacman::p_load(tidymodels,
-               tidyverse)
+               tidyverse,
+               utlis)
+
+```
+
+```{r}
+hotels <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-11/hotels.csv")
 
 ```
 
@@ -52,114 +58,566 @@ mtcars$speed <- mtcars$hp / mtcars$wt
 data("penguins")
 ```
 
-# Using Quarto for presentations
+# Tornado Dataset Analysis
 
-## Quarto
+## **Dataset Description**
 
--   The presentation is created using the Quarto CLI
+-   Data sourced from NOAA's National Weather Service Storm Prediction Center.
 
--   `##` sets the start of a new slide
+-   Key variables include tornado number, year, month, state, magnitude, injuries, fatalities, property loss, length, width, and states affected.
 
-## Layouts
+-   Loaded using **`tidytuesdayR`** package or manually read from a CSV file.
 
-You can use plain text
+## 
+
+### Question 1: Are there any patterns in the magnitude of tornadoes based on location or time of year?
+
+## **Plot 1**
 
 ::: columns
-::: {.column width="40%"}
--   or bullet points[^1]
+The plot is a line graph that illustrates how the mean magnitude of tornadoes has changed over time from 1950 to 2022.
+
+::: {.column width="50%"}
+```{r, warning=FALSE, fig.width=5.5}
+
+#Loading the required packages using pacman
+if(!require(pacman))
+  install.packages("pacman")
+
+pacman::p_load(tidyverse,
+               kableExtra,
+               ggplot2,
+               dplyr,
+               sf,
+               maps,
+               scales,
+               tidyr,
+               MASS,
+               patchwork,
+               animation,
+               png
+)
+
+#Reading the dataset and adding a new column to the data
+tornados <- readr::read_csv('data/tornados.csv', show_col_types = FALSE)
+tornados <- tornados[complete.cases(tornados),] #Decided to remove the NA values
+tornados <- tornados |>
+  mutate(
+  year_category = case_when(
+(yr >= 1950 & yr <= 1961) ~ "1950-1961",
+(yr >= 1962 & yr <= 1973) ~ "1962-1973",
+(yr >= 1974 & yr <= 1985) ~ "1974-1985",
+(yr >= 1986 & yr <= 1997) ~ "1986-1997",
+(yr >= 1998 & yr <= 2009) ~ "1998-2009",
+(yr >= 2010 & yr <= 2022) ~ "2010-2022"
+)
+)
+
+#Line plot showing magnitude trends
+annual_mean <- tornados %>%
+  group_by(yr) %>%
+  summarise(mean_mag = mean(mag, na.rm = TRUE), count = n(), .groups = "drop")
+mag_plot <- ggplot(data = annual_mean) +
+  geom_line(aes(x = yr, y = mean_mag),linewidth = 1,col="#00A572") +
+  labs(
+    x = "Year",
+    y = "Mean Magnitude per year",
+    title = "Tornado Magnitude Trends Over Time (1950-2022)"
+  ) +
+  theme_minimal()
+
+mag_plot
+```
 :::
-
-::: {.column width="60%"}
-or in two columns
 :::
-:::
-
-[^1]: And add footnotes
-
--   like
-
--   this
 
 ## Code
 
-```{r, echo=FALSE}
-model <- lm(mpg ~ speed, data = mtcars) 
+```{r, echo=TRUE, warning=FALSE , message=FALSE}
 
-model |> tidy()
+#Loading the required packages using pacman
+if(!require(pacman))
+  install.packages("pacman")
 
-model |> glance()
+pacman::p_load(tidyverse,
+               kableExtra,
+               ggplot2,
+               dplyr,
+               sf,
+               maps,
+               scales,
+               tidyr,
+               MASS,
+               patchwork,
+               animation,
+               png
+)
 
+#Reading the dataset and adding a new column to the data
+tornados <- readr::read_csv('data/tornados.csv', show_col_types = FALSE)
+tornados <- tornados[complete.cases(tornados),] #Decided to remove the NA values
+tornados <- tornados |>
+  mutate(
+  year_category = case_when(
+(yr >= 1950 & yr <= 1961) ~ "1950-1961",
+(yr >= 1962 & yr <= 1973) ~ "1962-1973",
+(yr >= 1974 & yr <= 1985) ~ "1974-1985",
+(yr >= 1986 & yr <= 1997) ~ "1986-1997",
+(yr >= 1998 & yr <= 2009) ~ "1998-2009",
+(yr >= 2010 & yr <= 2022) ~ "2010-2022"
+)
+)
+
+#Line plot showing magnitude trends
+annual_mean <- tornados %>%
+  group_by(yr) %>%
+  summarise(mean_mag = mean(mag, na.rm = TRUE), count = n(), .groups = "drop")
+mag_plot <- ggplot(data = annual_mean) +
+  geom_line(aes(x = yr, y = mean_mag),linewidth = 1,col="#00A572") +
+  labs(
+    x = "Year",
+    y = "Mean Magnitude per year",
+    title = "Tornado Magnitude Trends Over Time (1950-2022)"
+  ) +
+  theme_minimal()
 ```
 
-## Plots
-
-```{r}
-penguins |>
-  mutate(species = ifelse(species == "Adelie", "Adelie", "Other")) |>
-  ggplot(aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
-  geom_point()
-```
-
-## Plot and text
+## **Plot 2**
 
 ::: columns
-::: {.column width="50%"}
--   Some text
+The plot is a line graph that illustrates how the number of tornadoes has changed over time from 1950 to 2022.
 
--   goes here
+::: {.column width="50%"}
+```{r, warning=FALSE, fig.width=5.5}
+
+#Line plot showing count of tornado occurences
+num_plot<-ggplot(data = annual_mean) +
+  geom_line(aes(x = yr, y = count), linewidth = 1, col="#FF69B4") +
+  geom_smooth(aes(x = yr, y = count), method = lm, se=FALSE, col="#1E90FF") +
+  labs(
+    x = "Year",
+    y = "Number of Tornadoes per year",
+    title = "Count of Tornado Occurences Over Time (1950-2022)"
+  ) +
+  theme_minimal()
+num_plot
+```
+:::
+:::
+
+## Code
+
+```{r, echo=TRUE, warning=FALSE , message=FALSE}
+
+#Line plot showing count of tornado occurences
+num_plot<-ggplot(data = annual_mean) +
+  geom_line(aes(x = yr, y = count), linewidth = 1, col="#FF69B4") +
+  geom_smooth(aes(x = yr, y = count), method = lm, se=FALSE, col="#1E90FF") +
+  labs(
+    x = "Year",
+    y = "Number of Tornadoes per year",
+    title = "Count of Tornado Occurences Over Time (1950-2022)"
+  ) +
+  theme_minimal()
+```
+
+## **Plot 3**
+
+::: columns
+The bar plot illustrates the distribution of tornado magnitudes over 12-year intervals, revealing trends in the prevalence of different magnitude categories.
+
+::: {.column width="50%"}
+```{r, warning=FALSE, fig.width=5.5}
+
+#Bar plot to see the number
+tor_req<-tornados |>
+  group_by(mag, year_category) |>
+  summarize(num = n(),.groups = "drop") |>
+  mutate(mag = factor(mag, levels = c(0,1,2,3,4,5))) |>
+  ungroup()
+
+new_plot <- ggplot(data = tor_req,
+       mapping = aes(fill = mag, y = num, x = year_category))+
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("skyblue1", "#FFA533", "#FF5733", "#33FF57", "yellow", "black"), name = "Magnitude") +
+  labs(y = "Number of occurences", x = "Year categories", 
+       title = "Tornado Magnitude Distribution over the 12 year intervals") +
+  theme_minimal() +
+  coord_flip()
+
+new_plot
+```
+:::
+:::
+
+## Code
+
+```{r, echo=TRUE, warning=FALSE , message=FALSE}
+
+#Bar plot to see the number
+tor_req<-tornados |>
+  group_by(mag, year_category) |>
+  summarize(num = n(),.groups = "drop") |>
+  mutate(mag = factor(mag, levels = c(0,1,2,3,4,5))) |>
+  ungroup()
+
+new_plot <- ggplot(data = tor_req,
+       mapping = aes(fill = mag, y = num, x = year_category))+
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("skyblue1", "#FFA533", "#FF5733", "#33FF57", "yellow", "black"), name = "Magnitude") +
+  labs(y = "Number of occurences", x = "Year categories", 
+       title = "Tornado Magnitude Distribution over the 12 year intervals") +
+  theme_minimal() +
+  coord_flip()
+```
+
+## **Plot 4**
+
+::: columns
+::: columns
+<div>
+
+Analyzing tornado data, calculating variations in tornado magnitudes, and creating density contour plots to visualize the variations in the top 5 states for different year ranges.
+
+</div>
 :::
 
 ::: {.column width="50%"}
 ```{r, warning=FALSE, fig.width=5.5}
-penguins |>
-  ggplot(aes(x = bill_length_mm, y = species, color = species)) +
-  geom_boxplot(linewidth = 0.75,
-               outlier.size = 2.5) +
-  theme_minimal(base_size = 15) +
-  theme(legend.key.size = unit(0.8, "cm"))
+
+# Density plots for Tornado occurences
+tornado_sf <- st_as_sf(tornados, coords = c("slon", "slat"), crs = 4326)
+
+# Grouping the data by state and using standard deviation to calculate variations in magnitudes
+state_variations <- tornado_sf %>%
+  group_by(st) %>%
+  summarize(
+    magnitude_variation = sd(mag),
+    tornado_count = n()
+  ) %>%
+  ungroup()
+
+# Selecting the top 5 states with the highest magnitude variations
+top_5_states <- state_variations %>%
+  top_n(5, magnitude_variation)
+
+
+
+us_map=map_data("state")
+map("state", ".", exact = FALSE, plot = FALSE, fill = TRUE) %>% 
+  fortify(map_obj) %>% 
+  as_tibble() -> state_map
+
+xlim <- range(state_map$long)
+ylim <- range(state_map$lat)
+
+
+#Density plot generation
+generate_density_plot <- function(year_range, plot_title) {
+  req_tor <- tornados[tornados$st %in% top_5_states$st & tornados$yr %in% year_range, ]
+  density_data <- kde2d(req_tor$slon, req_tor$slat, n = 100)
+  density_df <- as.data.frame(expand.grid(x = density_data$x, y = density_data$y))
+  density_df$density <- c(density_data$z)
+ 
+ggplot() +
+    geom_contour(data=density_df, aes(x = x, y = y, z = density, color = after_stat(level)), bins = 25) +
+    scale_color_gradient(low = "blue", high = "red1", limits = c(0.005, 0.020), 
+                         oob = scales::squish, name = "Density") +
+    labs(title = plot_title) +
+    geom_polygon(data = us_map, aes(x = long, y = lat, group = group), color = "black", fill = NA) +
+    borders("state", colour = "black") +
+    theme_minimal() +
+    theme(plot.title = element_text(size = 16)) +
+    coord_cartesian(ylim = ylim)  # Keep the same y-axis limits for all plots
+}
+
+years <- list(
+  seq(1950, 1961),
+  seq(1962, 1973),
+  seq(1974, 1985),
+  seq(1986, 1997),
+  seq(1998, 2009),
+  seq(2010, 2022)
+)
+
+#Saving the plots as images
+save_plot_as_image <- function(plot, filename) {
+  ggsave(plot, filename = paste0("images/", filename), width = 6, 
+         height = 6, units = "in", bg = "white")
+}
+
+plot_titles <- c("1950-1961", "1962-1973", "1974-1985", "1986-1997", "1998-2009", "2010-2022")
+filenames <-c("plot1.png","plot2.png","plot3.png","plot4.png","plot5.png","plot6.png")
+
+plots <- list()
+
+for (i in seq_along(years)) {
+  plots[[i]] <- generate_density_plot(years[[i]], plot_titles[i])
+  save_plot_as_image(plots[[i]], filenames[i])
+}
+
+#For display
+#>plots[[1]] + plots[[2]] + plot_layout(guides = "collect")
+#>plots[[3]] +plots[[4]] + plot_layout(guides = "collect")
+#>plots[[5]] + plots[[6]] + plot_layout(guides = "collect")
+
+
+#To create a gif
+image_paths <- list.files("images", full.names = TRUE)
+selected_images <- grep("^plot[1-6]\\.png$", basename(image_paths), value = TRUE)
+selected_images <- file.path("images",selected_images)
+
+# Creating an animated GIF
+ani.options(ani.width = 1000, ani.height = 1000, res = 1020, "animated_plot.gif")
+
+saveGIF({
+  for (img_path in selected_images) {
+    img <- readPNG(img_path)
+    plot(0, 0, type = "n", xlim = c(0, 1), ylim = c(0, 1), 
+         xlab = "", ylab = "", main = "Tornado Occurence Density Trends", cex.main = 3)
+    rasterImage(img, 0, 0, 1, 1)
+  }
+}, interval = 1, movie.name = "animated_plot.gif")
+
+
 ```
 :::
 :::
 
-# A new section...
+## Code
 
-## Tables
+```{r, echo=TRUE, warning=FALSE , message=FALSE}
 
-If you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,
 
-```{r}
-penguins |> 
-  head() |>
-  kableExtra::kable() |>
-  kableExtra::kable_styling()
+# Density plots for Tornado occurences
+tornado_sf <- st_as_sf(tornados, coords = c("slon", "slat"), crs = 4326)
+
+# Grouping the data by state and using standard deviation to calculate variations in magnitudes
+state_variations <- tornado_sf %>%
+  group_by(st) %>%
+  summarize(
+    magnitude_variation = sd(mag),
+    tornado_count = n()
+  ) %>%
+  ungroup()
+
+# Selecting the top 5 states with the highest magnitude variations
+top_5_states <- state_variations %>%
+  top_n(5, magnitude_variation)
+
+
+
+us_map=map_data("state")
+map("state", ".", exact = FALSE, plot = FALSE, fill = TRUE) %>% 
+  fortify(map_obj) %>% 
+  as_tibble() -> state_map
+
+xlim <- range(state_map$long)
+ylim <- range(state_map$lat)
+
+
+#Density plot generation
+generate_density_plot <- function(year_range, plot_title) {
+  req_tor <- tornados[tornados$st %in% top_5_states$st & tornados$yr %in% year_range, ]
+  density_data <- kde2d(req_tor$slon, req_tor$slat, n = 100)
+  density_df <- as.data.frame(expand.grid(x = density_data$x, y = density_data$y))
+  density_df$density <- c(density_data$z)
+ 
+ggplot() +
+    geom_contour(data=density_df, aes(x = x, y = y, z = density, color = after_stat(level)), bins = 25) +
+    scale_color_gradient(low = "blue", high = "red1", limits = c(0.005, 0.020), 
+                         oob = scales::squish, name = "Density") +
+    labs(title = plot_title) +
+    geom_polygon(data = us_map, aes(x = long, y = lat, group = group), color = "black", fill = NA) +
+    borders("state", colour = "black") +
+    theme_minimal() +
+    theme(plot.title = element_text(size = 16)) +
+    coord_cartesian(ylim = ylim)  # Keep the same y-axis limits for all plots
+}
+
+years <- list(
+  seq(1950, 1961),
+  seq(1962, 1973),
+  seq(1974, 1985),
+  seq(1986, 1997),
+  seq(1998, 2009),
+  seq(2010, 2022)
+)
+
+#Saving the plots as images
+save_plot_as_image <- function(plot, filename) {
+  ggsave(plot, filename = paste0("images/", filename), width = 6, 
+         height = 6, units = "in", bg = "white")
+}
+
+plot_titles <- c("1950-1961", "1962-1973", "1974-1985", "1986-1997", "1998-2009", "2010-2022")
+filenames <-c("plot1.png","plot2.png","plot3.png","plot4.png","plot5.png","plot6.png")
+
+plots <- list()
+
+for (i in seq_along(years)) {
+  plots[[i]] <- generate_density_plot(years[[i]], plot_titles[i])
+  save_plot_as_image(plots[[i]], filenames[i])
+}
+
+#For display
+#>plots[[1]] + plots[[2]] + plot_layout(guides = "collect")
+#>plots[[3]] +plots[[4]] + plot_layout(guides = "collect")
+#>plots[[5]] + plots[[6]] + plot_layout(guides = "collect")
+
+
+#To create a gif
+image_paths <- list.files("images", full.names = TRUE)
+selected_images <- grep("^plot[1-6]\\.png$", basename(image_paths), value = TRUE)
+selected_images <- file.path("images",selected_images)
+
+# Creating an animated GIF
+ani.options(ani.width = 1000, ani.height = 1000, res = 1020, "animated_plot.gif")
+
+saveGIF({
+  for (img_path in selected_images) {
+    img <- readPNG(img_path)
+    plot(0, 0, type = "n", xlim = c(0, 1), ylim = c(0, 1), 
+         xlab = "", ylab = "", main = "Tornado Occurence Density Trends", cex.main = 3)
+    rasterImage(img, 0, 0, 1, 1)
+  }
+}, interval = 1, movie.name = "animated_plot.gif")
+
+
 ```
 
-## Images
+## 
 
-![Image credit: Danielle Navarro, Percolate.](images/watercolour_sys02_img34_teacup-ocean.png){fig-align="center" width="500"}
+### Question 2: Analyzing the trends in fatalities in different states
 
-## Math Expressions {.smaller}
+## Plot 1
 
-You can write LaTeX math expressions inside a pair of dollar signs, e.g. \$\\alpha+\\beta\$ renders $\alpha + \beta$. You can use the display style with double dollar signs:
+::: columns
+creating an area plot to visualize the total fatalities over the years. It highlights significant tornado years like 1953 and 2011 in red.
 
-```         
-$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
+```{r, warning=FALSE, fig.width=4.5}
+
+tornadoes <- read_csv('data/tornados.csv')
+tornadoes <- na.omit(tornadoes)
+
+#creating new column called state name
+state_mapping <- setNames(state.name, state.abb)
+
+# Add a new column "state_name" to the tornadoes dataset
+tornadoes$state_name <- state_mapping[tornadoes$st]
+
+#Calculating the total fatalities
+total_fatalities <- aggregate(fat ~ yr, data = tornadoes, sum)
+
+# creating an area plot
+ggplot(total_fatalities, aes(x = yr, y = fat)) +
+  geom_area(fill="#8B0000") +
+  geom_line(color="#8B0000") +
+  labs(title = "Total Fatalities Over the Years",
+       x = "Year",
+       y = "Total Fatalities") +
+  scale_x_continuous(
+    breaks = seq(1950, 2022, by = 10),
+    limits = c(1950, 2022)) +
+  theme_minimal() +
+  annotate("text",x=1955,y=500, label= "1953", color = '#8B0000',
+           size = 4) +
+  annotate("text",x=2014,y=510, label= "2011", color = '#8B0000',
+           size = 4)
+```
+:::
+
+## Code
+
+```{r, echo=TRUE, warning=FALSE , message=FALSE}
+
+tornadoes <- read_csv('data/tornados.csv')
+tornadoes <- na.omit(tornadoes)
+
+#creating new column called state name
+state_mapping <- setNames(state.name, state.abb)
+
+# Add a new column "state_name" to the tornadoes dataset
+tornadoes$state_name <- state_mapping[tornadoes$st]
+
+#Calculating the total fatalities
+total_fatalities <- aggregate(fat ~ yr, data = tornadoes, sum)
+
+# creating an area plot
+plot <- ggplot(total_fatalities, aes(x = yr, y = fat)) +
+  geom_area(fill="#8B0000") +
+  geom_line(color="#8B0000") +
+  labs(title = "Total Fatalities Over the Years",
+       x = "Year",
+       y = "Total Fatalities") +
+  scale_x_continuous(
+    breaks = seq(1950, 2022, by = 10),
+    limits = c(1950, 2022)) +
+  theme_minimal() +
+  annotate("text",x=1955,y=500, label= "1953", color = '#8B0000',
+           size = 4) +
+  annotate("text",x=2014,y=510, label= "2011", color = '#8B0000',
+           size = 4)
 ```
 
-$$
-\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i
-$$
+## Plot 2
 
-Limitations:
+::: columns
+This plot illustrates the total fatalities caused by tornadoes in specific years (1953 and 2011) across different U.S. states, providing insights into the geographic distribution of tornado-related deaths during those periods.
 
-1.  The source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting `$$` must appear in the very beginning of a line, followed immediately by a non-space character, and the ending `$$` must be at the end of a line, led by a non-space character;
+```{r, warning=FALSE, fig.width=4.5}
 
-2.  There should not be spaces after the opening `$` or before the closing `$`.
+total_fatalities <- tornadoes |>
+  filter(yr %in% c(1953,2011))|>
+  aggregate(fat ~ state_name, sum) |>
+  arrange(desc(fat)) |>
+  filter(fat>0)
 
-# Wrap up
+#creaing a horizontal bar plot
+ggplot(total_fatalities, aes(x = reorder(state_name, fat), y = fat)) +
+  geom_bar(stat="identity",fill="#8B0000") +
+  geom_text(aes(label=fat), vjust=0.2,hjust=0,size=3) +
+  coord_flip() +
+  labs(x=NULL,
+       y=NULL,
+       title = "Total fatalities",
+       subtitle="In the years 1953 and 2011",
+       caption = "States not listed didnot record any deaths by tornadoes")+
+  theme_minimal() +
+  theme(
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    axis.text.x = element_blank()
+  )
+```
+:::
 
-## Feeling adventurous?
+## Code
 
--   You are welcomed to use the default styling of the slides. In fact, that's what I expect majority of you will do. You will differentiate yourself with the content of your presentation.
+```{r, echo=TRUE, warning=FALSE , message=FALSE}
 
--   But some of you might want to play around with slide styling. Some solutions for this can be found at https://quarto.org/docs/presentations/revealjs.
+total_fatalities <- tornadoes |>
+  filter(yr %in% c(1953,2011))|>
+  aggregate(fat ~ state_name, sum) |>
+  arrange(desc(fat)) |>
+  filter(fat>0)
+
+#creaing a horizontal bar plot
+plot <- ggplot(total_fatalities, aes(x = reorder(state_name, fat), y = fat)) +
+  geom_bar(stat="identity",fill="#8B0000") +
+  geom_text(aes(label=fat), vjust=0.2,hjust=0,size=3) +
+  coord_flip() +
+  labs(x=NULL,
+       y=NULL,
+       title = "Total fatalities",
+       subtitle="In the years 1953 and 2011",
+       caption = "States not listed didnot record any deaths by tornadoes")+
+  theme_minimal() +
+  theme(
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    axis.text.x = element_blank()
+  )
+```
+
+# 
