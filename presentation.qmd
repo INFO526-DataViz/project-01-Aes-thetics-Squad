@@ -1,9 +1,9 @@
 ---
 title: "Unraveling Tornado Trends"
 subtitle: "INFO 526 - Fall 2023 - Project 1"
-author: ""
+author: "Team Aes-Thetics-Squad: Priyarsha Vallabhaneni, Sai Madhuri Kandula, Jothish Kumar Polaki, Ansh Kumar Dev"
 title-slide-attributes:
-  data-background-image: images/tornado-3189351.jpg
+  data-background-image: images/tornado_image.png
   data-background-size: stretch
   data-background-opacity: "0.7"
   data-slide-number: none
@@ -16,7 +16,7 @@ execute:
   echo: false
 ---
 
-```{r}
+```{r loadpackages, warning=FALSE, message=FALSE}
 #| label: load-packages
 #| include: false
 
@@ -28,7 +28,7 @@ pacman::p_load(tidymodels,
 
 ```
 
-```{r}
+```{r set-theme, warning=FALSE, message=FALSE}
 #| label: setup
 #| include: false
 
@@ -74,13 +74,13 @@ knitr::opts_chunk$set(
 
 ### Question 1: Are there any patterns in the magnitude of tornadoes based on location or time of year?
 
-## **Plot 1**
+## **Tornado Magnitude Trends over the years**
 
 ::: columns
 The plot is a line graph that illustrates how the mean magnitude of tornadoes has changed over time from 1950 to 2022.
 :::
 
-```{r, warning=FALSE, fig.width=5.5, fig.height=5, fig.align='center'}
+```{r Q1package_load, warning=FALSE, fig.width=5.5, fig.height=5, fig.align='center', message=FALSE}
 
 #| fig-asp: 0.4
 
@@ -133,13 +133,13 @@ mag_plot <- ggplot(data = annual_mean) +
 mag_plot
 ```
 
-## **Plot 2**
+## **Tornado occurences over years**
 
 ::: columns
 The plot is a line graph that illustrates how the number of tornadoes has changed over time from 1950 to 2022.
 :::
 
-```{r, warning=FALSE, fig.width=5.5, fig.height=5, fig.align='center'}
+```{r occurence_plot, warning=FALSE, fig.width=5.5, fig.height=5, fig.align='center', message=FALSE}
 
 #Line plot showing count of tornado occurences
 num_plot<-ggplot(data = annual_mean) +
@@ -154,13 +154,13 @@ num_plot<-ggplot(data = annual_mean) +
 num_plot
 ```
 
-## **Plot 3**
+## **Tornado magnitude distributions over 12 decades**
 
 ::: columns
 The bar plot illustrates the distribution of tornado magnitudes over 12-year intervals, revealing trends in the prevalence of different magnitude categories.
 :::
 
-```{r, warning=FALSE, fig.width=5.5, fig.height=5, fig.align='center'}
+```{r Q1barplot, warning=FALSE, fig.width=5.5, fig.height=5, fig.align='center', message=FALSE}
 
 #Bar plot to see the number
 tor_req<-tornados |>
@@ -181,9 +181,9 @@ new_plot <- ggplot(data = tor_req,
 new_plot
 ```
 
-## **Plot 4**
+## **Tornado contour map**
 
-```{r, warning=FALSE, fig.width=5.5, fig.align='center'}
+```{r contour_plot, warning=FALSE, fig.width=5.5, fig.align='center', message=FALSE}
 
 
 library(magick)
@@ -202,7 +202,7 @@ image_animate(gif, fps = 1)
 ::: panel-tabset
 ## Area Plot
 
-```{r, warning=FALSE, fig.width=4, fig.align='center'}
+```{r Q2area_plot, warning=FALSE, fig.width=4, fig.align='center', message=FALSE}
 tornadoes <- read_csv('data/tornados.csv')
 tornadoes <- na.omit(tornadoes)
 
@@ -235,7 +235,7 @@ ggplot(total_fatalities, aes(x = yr, y = fat)) +
 
 ## Bar Plot
 
-```{r, warning=FALSE, fig.width=4, fig.height=2, fig.align='center'}
+```{r Q2bar_plot, warning=FALSE, fig.width=4, fig.height=2, fig.align='center', message=FALSE}
 
 total_fatalities <- tornadoes |>
   filter(yr %in% c(1953,2011))|>

@@ -128,13 +128,14 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
   <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
   </ul></li>
-  <li><a href="#question-2-analyzing-the-trends-in-fatalities-in-different-states" id="toc-question-2-analyzing-the-trends-in-fatalities-in-different-states" class="nav-link" data-scroll-target="#question-2-analyzing-the-trends-in-fatalities-in-different-states">Question 2: Analyzing the trends in fatalities in different states</a>
+  <li><a href="#question-2-what-are-the-trends-in-the-frequency-of-tornado-related-fatalities-over-the-years-for-different-states-in-the-usa" id="toc-question-2-what-are-the-trends-in-the-frequency-of-tornado-related-fatalities-over-the-years-for-different-states-in-the-usa" class="nav-link" data-scroll-target="#question-2-what-are-the-trends-in-the-frequency-of-tornado-related-fatalities-over-the-years-for-different-states-in-the-usa">Question 2: What are the trends in the frequency of tornado-related fatalities over the years for different states in the USA?</a>
   <ul class="collapse">
   <li><a href="#introduction-2" id="toc-introduction-2" class="nav-link" data-scroll-target="#introduction-2">Introduction</a></li>
   <li><a href="#approach-1" id="toc-approach-1" class="nav-link" data-scroll-target="#approach-1">Approach</a></li>
   <li><a href="#analysis-1" id="toc-analysis-1" class="nav-link" data-scroll-target="#analysis-1">Analysis</a></li>
   <li><a href="#discussion-1" id="toc-discussion-1" class="nav-link" data-scroll-target="#discussion-1">Discussion</a></li>
   </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -205,25 +206,28 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/finalQ1plot-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="cell-output-display">
 <p><img src="index_files/figure-html/finalQ1plot-2.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/finalQ1plot-3.png" class="img-fluid" width="672"></p>
 </div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/finalQ1plot-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/finalQ1plot-1.gif" class="img-fluid"></p>
+</div>
 </div>
 </section>
 <section id="discussion" class="level3">
 <h3 class="anchored" data-anchor-id="discussion">Discussion</h3>
-<p>The first set of visualizations, that is the line plot, is focused on tornado magnitude trends over the years. We observed fluctuations in the mean tornado magnitude per year, with peaks and valleys throughout the decades. We can see that the intensity of tornadoes decreased as we moved forward from 1950 to 2022 gradually. From the second line plot we can see that the count of tornadoes increased over time slightly. The trend line in the plot shows this increase effectively from 1950 to 2022. So, from these two line plots, we could say that there were few but intense tornado in the late 1900s while there were more but less intense tornadoes today.</p>
+<p>The first set of visualizations, that is the line plot, is focused on tornado magnitude trends over the years. We observed fluctuations in the mean tornado magnitude per year, with peaks and valleys throughout the decades. We can see that the intensity of tornadoes decreased as we moved forward from 1950 to 2022 gradually. From the second line plot we can see that the count of tornadoes increased over time slightly. The trend line in the plot shows this increase effectively from 1950 to 2022. Based on these two line plots, it is evident that the late 1900s experienced fewer tornadoes, but of higher intensity, whereas the present day sees a greater number of tornadoes, albeit with lower intensity.</p>
 <p>Furthermore, examining tornado magnitudes in different categories (EF scale) across distinct year categories (1950-1961, 1962-1973, 1974-1985, 1986-1997, 1998-2009, 2010-2022) through a stacked bar plot illuminated the distribution of tornado intensities over time. It interprets that as the time progressed the intensity of the tornadoes decreased, but the number of tornadoes increased.</p>
-<p>For the contour maps, we can see the variations in tornado density for the states “Alabama” “Iowa”, “Kansas”,“North Dakota”, “Tennessee”.</p>
+<p>For the contour maps, we can see the variations in the trends of tornado occurences for the states “Alabama” “Iowa”, “Kansas”,“North Dakota”, “Tennessee”. Each of the density plot represents a specific period, and as they progress, you can observe how tornado density and patterns evolve. In the first two density plots(1950-1973), tornado events were less frequent, resulting in areas of low tornado density. In the next two plots(1974-1997), tornado density increases, and the tornado patterns become more widespread, so we can observe greater concentration of tornado events in various regions, indicating a moderate increase in tornado activity. In the last two plots(1998-2022), tornado density significantly rises during these periods, with widespread and more intense tornado events. These density plots show larger and more connected areas of high tornado density, suggesting that tornado occurrences have become more frequent and impactful.</p>
 </section>
 </section>
-<section id="question-2-analyzing-the-trends-in-fatalities-in-different-states" class="level2">
-<h2 class="anchored" data-anchor-id="question-2-analyzing-the-trends-in-fatalities-in-different-states">Question 2: Analyzing the trends in fatalities in different states</h2>
+<section id="question-2-what-are-the-trends-in-the-frequency-of-tornado-related-fatalities-over-the-years-for-different-states-in-the-usa" class="level2">
+<h2 class="anchored" data-anchor-id="question-2-what-are-the-trends-in-the-frequency-of-tornado-related-fatalities-over-the-years-for-different-states-in-the-usa">Question 2: What are the trends in the frequency of tornado-related fatalities over the years for different states in the USA?</h2>
 <section id="introduction-2" class="level3">
 <h3 class="anchored" data-anchor-id="introduction-2">Introduction</h3>
 <p>Tornadoes, besides causing property damage, often result in injuries and fatalities, making an analysis of their impact crucial. In this section, we focus on understanding the trends in fatalities caused by tornadoes across various states in the United States. To address this query, it is essential to focus on specific components of the dataset, such as the yr-the year in which the tornado occurred, st- state in which the tornado occurred, and fat- deaths caused by that tornado.</p>
@@ -252,9 +256,16 @@ ul.task-list li input[type="checkbox"] {
 <p>In the given analysis, we observe notable trends in tornado-related fatalities over the years. The area plot depicting total fatalities over the years shows a fluctuating pattern, with peaks and valleys in different periods. There was a peak in the year 1953 resulting in a total of almost 500 deaths in that year. After this they were random peaks and troughs from 1960’s to 2010 . There was another noticeable increase in fatalities, with a peak in 2011, it is similar to the peak that occurred in 1953. In recent years, from the mid-2010s, there seems to be a slight uptick in fatalities.</p>
 <p>The horizontal bar chart illustrates the total fatalities for select years (1953 and 2011) both years combined across various states. It reveals significant disparities in fatality counts, with some states experiencing much higher casualties than others. For instance, Alabama, Missouri and Texas are the top 3 states that has the highest death counts.</p>
 <p>The data looks the way it does is most probably because in 1953, the deadliest tornado in the United States occurred on May 11 in Waco, Texas.In 2011, the deadliest tornado occurred on April 27. This outbreak produced a series of extremely destructive tornadoes across several states, including Alabama, Mississippi, Tennessee, and Georgia. The most devastating tornado was the EF5 tornado that struck Tuscaloosa, Alabama. The observed trends in the analysis align with the historical data for these years, with 1953 and 2011 standing out as particularly deadly years due to these catastrophic tornado events. The significant impact of these specific tornadoes in Alabama and Texas likely contributes to the notable spikes in fatality counts observed in the analysis.</p>
-
-
 </section>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<ol type="1">
+<li>https://www.ncei.noaa.gov/access/monitoring/monthly-report/tornadoes/201913</li>
+<li>https://www.nssl.noaa.gov/research/tornadoes/</li>
+</ol>
+
+
 </section>
 
 </main> <!-- /main -->

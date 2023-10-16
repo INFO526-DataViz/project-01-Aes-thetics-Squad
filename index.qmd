@@ -230,7 +230,7 @@ Furthermore, examining tornado magnitudes in different categories (EF scale) acr
 
 For the contour maps, we can see the variations in the trends of tornado occurences for the states "Alabama" "Iowa", "Kansas","North Dakota", "Tennessee". Each of the density plot represents a specific period, and as they progress, you can observe how tornado density and patterns evolve. In the first two density plots(1950-1973), tornado events were less frequent, resulting in areas of low tornado density. In the next two plots(1974-1997), tornado density increases, and the tornado patterns become more widespread, so we can observe greater concentration of tornado events in various regions, indicating a moderate increase in tornado activity. In the last two plots(1998-2022), tornado density significantly rises during these periods, with widespread and more intense tornado events. These density plots show larger and more connected areas of high tornado density, suggesting that tornado occurrences have become more frequent and impactful.
 
-## Question 2: Analyzing the trends in fatalities in different states
+## Question 2: What are the trends in the frequency of tornado-related fatalities over the years for different states in the USA?
 
 ### Introduction
 
