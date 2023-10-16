@@ -215,7 +215,7 @@ Furthermore, examining tornado magnitudes in different categories (EF scale) acr
 
 In conclusion, this comprehensive analysis of tornado magnitude trends offers valuable insights into the spatiotemporal dynamics of tornado intensity. By dissecting the data from multiple perspectives, we gain a deeper understanding of tornado behaviors, providing a strong foundation for informed decision-making in disaster management and risk reduction strategies.
 
-## Question 2: Analyzing the trends in fatalities in different state
+## Question 2: Analyzing the trends in fatalities in different states
 
 ### Introduction
 

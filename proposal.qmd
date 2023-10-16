@@ -49,7 +49,7 @@ Variables Involved:
 
 We first group the data state-wise using "st" variable and year-wise using "yr" variable, then calculate the summary statistics on both the grouped data separately. From the obtained results we check for any particular states having undergone multiple variations over time and select a few such states along with few other states for further plotting. Then for each of these states we plan to show the variations in tornado intensities over the course of time using alley maps visualization.
 
-**Question 2:** Analyzing the trends in fatalities in different state
+**Question 2:** What are the trends in the frequency of tornado-related fatalities over the years for different states in the USA?
 
 Analysis Plan:
 
@@ -61,4 +61,4 @@ Variables Involved:
 
 \- "st": \[character\] Two-letter postal abbreviation for the state.
 
-To analyze trends in fatalities caused by tornadoes across different states, we will focus on the variables "fat" (number of fatalities), "yr" (year), and "st" (state). First, we will aggregate the fatality data for each state, summarizing the total fatalities for each year. Next, we will select five specific states - Texas, Florida, Oklahoma, Kansas, and Nebraska - known for experiencing severe tornadoes, and plot the fatality trends over 20-year intervals. We will use a line plot to visualize the variations in fatalities over time for these states, emphasizing Texas, the state with consistently high fatalities. This approach will provide valuable insights into the trends of tornado-related fatalities in key states, aiding in disaster response planning and resources allocation.
+To analyze trends in fatalities caused by tornadoes across different states, we will focus on the variables "fat" (number of fatalities), "yr" (year), and "st" (state). First, we will aggregate the fatality data, summarizing the total fatalities for each year. Next, we will use an line/area plot to see in which years more deaths occurred. We will select those years and plot an horizontal bar plot for each state showing the number of deaths in those particular years. This approach will provide valuable insights into the trends of tornado-related fatalities in key states, aiding in disaster response planning and resources allocation.
