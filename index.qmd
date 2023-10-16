@@ -8,7 +8,7 @@ editor: visual
 
 ## Abstract
 
-This data visualization project centers on unraveling patterns in tornado occurrences and their impacts across the United States. Leveraging a comprehensive dataset encompassing 68,693 tornado events from 1950 to 2022, we delve into two critical aspects: tornado magnitude patterns and multi-state impacts. The project aims to discern if specific states undergo recurring variations in tornado intensity over time and to identify the most common state combinations affected by tornadoes. Through innovative visualizations like alley maps and co-occurrence heatmaps, we seek to provide a clearer understanding of tornado phenomena, enabling informed decision-making and proactive disaster management strategies.
+This data visualization project centers on unraveling patterns in tornado occurrences and their impacts across the United States. Tornadoes are violent, rotating columns of air that form severe thunderstorms capable of producing destructive winds. In this project we delve into two critical aspects: tornado magnitude patterns and the tornado related fatalities in each state . Through innovative visualizations like alley maps and horizontal bar plot, we seek to provide a clearer understanding of tornado phenomena, enabling informed decision-making and proactive disaster management.
 
 ## Introduction
 
