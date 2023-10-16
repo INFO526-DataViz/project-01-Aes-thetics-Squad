@@ -12,9 +12,9 @@ This data visualization project centers on unraveling patterns in tornado occurr
 
 ## Introduction
 
-The aim of this project is to analyse the tornadoes data provided from NOAA's National Weather Service Storm Prediction Center [Severe Weather Maps, Graphics, and Data Page](https://www.spc.noaa.gov/wcm/#data). And the dataset is provided from the tidytuesday github page. We utilize the provided dataset on tornadoes in the United States, encompassing essential details such as location, magnitude, impact, fatalities, injuries, date, time, year, etc.
+This tornadoes data comes from NOAA's National Weather Service Storm Prediction Center [Severe Weather Maps, Graphics, and Data Page](https://www.spc.noaa.gov/wcm/#data). It is also available on the tidytuesday github page. The data has 68,693 rows and 27 columns, including numerical and categorical variables. It equips us with a treasure trove of information spanning over seven decades that is from 1950 to 2022.
 
-Tornadoes are formidable natural phenomena that pose significant risks and challenges, particularly in the United States. To gain a deeper understanding of these occurrences, we delve into a rich dataset that provides a detailed account of tornado events.This dataset equips us with a treasure trove of information spanning over seven decades. Through data visualization techniques, we strive to convey our findings effectively, aiding in disaster preparedness, risk assessment, and the advancement of meteorological understanding.
+To gain a deeper understanding of these tornadoes, we delve into this data containing variables such as 'magnitude'- the magnitude of tornadoes , 'state' -the state in which the tornado occurred, 'fatalities'-number of deaths for each tornado, 'year'- the year in which the tornado occurred, 'slat'- starting latitude, 'slon'-starting longitude, 'elat'- ending latitude, 'elon' - ending longtitude.
 
 ## Question 1: Are there any patterns in the magnitude of tornadoes based on location or time of year?
 
@@ -32,8 +32,98 @@ Tornado intensity can vary significantly across geographical regions and through
 
 ### Introduction
 
-Tornadoes, besides causing property damage, often result in injuries and fatalities, making an analysis of their impact crucial. In this section, we focus on understanding the trends in fatalities caused by tornadoes across various states in the United States. By examining how fatality rates vary across states and over time, we aim to identify states that are more vulnerable to severe tornado impacts. This analysis can offer valuable insights for improving disaster response strategies and saving lives in tornado-prone regions.
+Tornadoes, besides causing property damage, often result in injuries and fatalities, making an analysis of their impact crucial. In this section, we focus on understanding the trends in fatalities caused by tornadoes across various states in the United States. To address this query, it is essential to focus on specific components of the dataset, such as the year, state, and fatality counts.
+
+Firstly, understanding how fatality rates have changed over time provides crucial insights into the effectiveness of disaster preparedness and response efforts. It helps in evaluating the impact of various safety measures and policies implemented over the years. Additionally, as climate patterns continue to shift, studying these trends can offer valuable information for adapting strategies to mitigate the human toll of tornadoes in the future. Ultimately, this analysis holds the potential to save lives and enhance the resilience of communities in the face of these natural disasters.
 
 ### Approach
 
-Understanding the impact of tornadoes on human life, specifically fatalities, is paramount in devising strategies to minimize casualties. For this analysis, we primarily focus on the variable of fatalities and the years in which they occurred. To visualize these trends, we plot the fatalities for a select group of states, including Texas, Florida, Oklahoma, Kansas, and Nebraska. We emphasize a longitudinal view by plotting the fatalities over every 20 years, highlighting significant trends in fatality rates. Notably, we identify Texas as a state with consistently high fatalities and emphasize it in our visualization. This in-depth exploration of fatality trends across these states provides valuable insights into disaster response and preparedness, ultimately striving to minimize the loss of life during tornado events.
+To address the question regarding trends in tornado-related fatalities, we employed an area plot and a bar plot. Firstly, we utilized a area plot to visualize the general trend in the total number of fatalities over the years from 1950 to 2022. An area chart provides an effective representation of cumulative or aggregated data over a continuous range, making it ideal for showcasing trends and variations in a data over time. It allows us to observe the cumulative total of fatalities increasing over the years. Each point on the chart represents the cumulative sum of fatalities up to a specific year, providing a clear visual indication of how the fatality count has evolved.
+
+From the area chart we saw that there are 2 peaks in the years 1953 and 2011. So, we employed a bar plot to investigate the total fatalities for those years in each state. The horizontal bar chart excels at facilitating comparisons between different categories, which in this case, are the individual states. Each bar on the chart corresponds to a specific state. The length of each bar directly corresponds to the number of fatalities, longer bars signify higher fatality counts, allowing viewers to readily grasp the relative impact of tornado-related incidents across different states
+
+### Analysis
+
+```{{r setup,warning=FALSE, message=FALSE, output=FALSE}}
+
+if(!require(pacman))
+
+  install.packages("pacman")
+
+pacman::p_load(ggplot2,dplyr)
+
+#suppress warning
+
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+``
+
+```{{r loading data}}
+tornadoes <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-05-16/tornados.csv', show_col_types = FALSE)
+tornadoes <- na.omit(tornadoes)
+head(tornadoes)
+```
+
+```{{r data wrangling,message=FALSE,warning=FALSE}}
+#creating new column called state name
+state_mapping <- setNames(state.name, state.abb)
+
+# Add a new column "state_name" to the tornadoes dataset
+tornadoes$state_name <- state_mapping[tornadoes$st]
+
+# View the modified dataset
+head(tornadoes)
+```
+
+```{{r area plot, message=FALSE, warning=FALSE}}
+total_fatalities <- aggregate(fat ~ yr, data = tornadoes, sum)
+
+# Create the area plot
+ggplot(total_fatalities, aes(x = yr, y = fat)) +
+  geom_area(fill="#8B0000")+
+  geom_line(color="#8B0000") +
+  labs(title = "Total Fatalities Over the Years",
+       x = "Year",
+       y = "Total Fatalities") +
+   scale_x_continuous(
+    breaks = seq(1950, 2022, by = 10),
+    limits = c(1950, 2022))+
+  theme_minimal()+
+  annotate("text",x=1955,y=500, label= "1953", color = '#8B0000',
+           size = 4)+
+  annotate("text",x=2014,y=510, label= "2011", color = '#8B0000',
+           size = 4)
+```
+
+```{{r bar plot, message=FALSE, warning=FALSE}}
+total_fatalities <- tornadoes |>
+  filter(yr %in% c(1953,2011))|>
+  aggregate(fat ~ state_name, sum) |>
+  arrange(desc(fat)) |>
+  filter(fat>0)
+  
+
+# Create the bar plot
+ggplot(total_fatalities, aes(x = reorder(state_name, fat), y = fat)) +
+  geom_bar(stat="identity",fill="#8B0000") +
+  geom_text(aes(label=fat), vjust=0.2,hjust=0,size=3) +
+  coord_flip()+
+   labs(x=NULL,
+        y=NULL,
+        title = "Total fatalities",
+        subtitle="In the years 1953 and 2011",
+        caption = "States not listed didnot record any deaths by tornadoes")+
+  theme_minimal()+
+    theme(
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    axis.text.x = element_blank()
+  )
+```
+
+### Discussion
+
+In the given analysis, we observe notable trends in tornado-related fatalities over the years. The area plot depicting total fatalities over the years shows a fluctuating pattern, with peaks and valleys in different periods. There was a peak in the year 1953 resulting in a total of almost 500 deaths in that year. After this they were random peaks and troughs from 1960's to 2010 . There was another noticeable increase in fatalities, with a peak in 2011, it is similar to the peak that occurred in 1953. In recent years, from the mid-2010s, there seems to be a slight uptick in fatalities.
+
+The horizontal bar chart illustrates the total fatalities for select years (1953 and 2011) both years combined across various states. It reveals significant disparities in fatality counts, with some states experiencing much higher casualties than others. For instance, Alabama, Missouri and Texas are the top 3 states that has the highest death counts.
+
+These trends may be influenced by various factors, including local infrastructure, disaster preparedness, and population density. Additionally, meteorological conditions and geographical features could play a role in the frequency and severity of tornado events in different states. Further studies could delve into these potential drivers to provide a more comprehensive understanding of the observed trends.
