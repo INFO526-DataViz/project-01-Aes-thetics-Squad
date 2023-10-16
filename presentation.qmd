@@ -72,6 +72,8 @@ knitr::opts_chunk$set(
 
 4.  **Geospatial Details**: Offers geospatial info like coordinates, length, and width for exploring tornado geography.
 
+## 
+
 ### Question 1: Are there any patterns in the magnitude of tornadoes based on location or time of year?
 
 ## **Tornado Magnitude Trends over the years**
@@ -265,3 +267,14 @@ ggplot(total_fatalities, aes(x = reorder(state_name, fat), y = fat)) +
 
 ```
 :::
+
+## Conclusion
+
+1.  This presentation explores tornado trends using NOAA's Tornado Dataset, addressing questions on tornado magnitude patterns and fatality trends in different states.
+
+2.  Analysis reveals that tornado magnitudes vary over time and are distributed differently across 12-year intervals, providing insights into changing tornado patterns.
+
+3.  The study also uncovers states with notable tornado-related fatalities in 1953 and 2011, shedding light on geographical vulnerability to tornadoes.'
+
+
+
