@@ -62,7 +62,15 @@ knitr::opts_chunk$set(
 
 -   Loaded using **`tidytuesdayR`** package or manually read from a CSV file.
 
-## 
+## Key Dataset Characteristics
+
+1.  **Temporal and Geographical Coverage**: Spans 1950-2022, covers all U.S. states including Washington, D.C., Puerto Rico, and the Virgin Islands.
+
+2.  **Magnitude and Variations**: Includes tornado magnitude (F scale, later EF), some values estimated, for analyzing patterns by location and time.
+
+3.  **Fatalities and Injuries**: Provides data on tornado-related fatalities and injuries for studying trends over the years and across states.
+
+4.  **Geospatial Details**: Offers geospatial info like coordinates, length, and width for exploring tornado geography.
 
 ### Question 1: Are there any patterns in the magnitude of tornadoes based on location or time of year?
 
