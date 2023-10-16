@@ -54,26 +54,31 @@ pacman::p_load(tidyverse,
                animation,
                png
 )
+```
 
+```{r readdataQ1, message=FALSE, warning=FALSE, echo=FALSE}
 #Reading the dataset and adding a new column to the data
 tornados <- readr::read_csv('data/tornados.csv', show_col_types = FALSE)
 tornados <- tornados[complete.cases(tornados),] #Decided to remove the NA values
 tornados <- tornados |>
   mutate(
-  year_category = case_when(
-(yr >= 1950 & yr <= 1961) ~ "1950-1961",
-(yr >= 1962 & yr <= 1973) ~ "1962-1973",
-(yr >= 1974 & yr <= 1985) ~ "1974-1985",
-(yr >= 1986 & yr <= 1997) ~ "1986-1997",
-(yr >= 1998 & yr <= 2009) ~ "1998-2009",
-(yr >= 2010 & yr <= 2022) ~ "2010-2022"
-)
-)
+    year_category = case_when(
+      (yr >= 1950 & yr <= 1961) ~ "1950-1961",
+      (yr >= 1962 & yr <= 1973) ~ "1962-1973",
+      (yr >= 1974 & yr <= 1985) ~ "1974-1985",
+      (yr >= 1986 & yr <= 1997) ~ "1986-1997",
+      (yr >= 1998 & yr <= 2009) ~ "1998-2009",
+      (yr >= 2010 & yr <= 2022) ~ "2010-2022"
+    )
+  )
+```
 
+```{r lineplots, message=FALSE, warning=FALSE, echo=FALSE}
 #Line plot showing magnitude trends
 annual_mean <- tornados %>%
   group_by(yr) %>%
   summarise(mean_mag = mean(mag, na.rm = TRUE), count = n(), .groups = "drop")
+
 mag_plot <- ggplot(data = annual_mean) +
   geom_line(aes(x = yr, y = mean_mag),linewidth = 1,col="#00A572") +
   labs(
@@ -96,7 +101,9 @@ num_plot<-ggplot(data = annual_mean) +
 
 mag_plot
 num_plot
+```
 
+```{r barplotQ1, message=FALSE, warning=FALSE, echo=FALSE}
 #Bar plot to see the number
 tor_req<-tornados |>
   group_by(mag, year_category) |>
@@ -112,7 +119,9 @@ ggplot(data = tor_req,
        title = "Tornado Magnitude Distribution over the 12 year intervals") +
   theme_minimal() +
   coord_flip()
+```
 
+```{r densityplot, message=FALSE, warning=FALSE, echo=FALSE}
 # Density plots for Tornado occurences
 tornado_sf <- st_as_sf(tornados, coords = c("slon", "slat"), crs = 4326)
 
@@ -146,7 +155,7 @@ generate_density_plot <- function(year_range, plot_title) {
   density_data <- kde2d(req_tor$slon, req_tor$slat, n = 100)
   density_df <- as.data.frame(expand.grid(x = density_data$x, y = density_data$y))
   density_df$density <- c(density_data$z)
- 
+  
 ggplot() +
     geom_contour(data=density_df, aes(x = x, y = y, z = density, color = after_stat(level)), bins = 25) +
     scale_color_gradient(low = "blue", high = "red1", limits = c(0.005, 0.020), 
@@ -158,7 +167,9 @@ ggplot() +
     theme(plot.title = element_text(size = 16)) +
     coord_cartesian(ylim = ylim)  # Keep the same y-axis limits for all plots
 }
+```
 
+```{r finalQ1plot, message=FALSE, warning=FALSE, echo=FALSE}
 years <- list(
   seq(1950, 1961),
   seq(1962, 1973),
@@ -206,7 +217,6 @@ invisible(saveGIF({
     rasterImage(img, 0, 0, 1, 1)
   }
 }, interval = 1, movie.name = "animated_plot.gif"))
-
 ```
 
 ### Discussion

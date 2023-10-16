@@ -125,13 +125,15 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1">Introduction</a></li>
   <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">Approach</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
   </ul></li>
   <li><a href="#question-2-analyzing-the-trends-in-fatalities-in-different-states" id="toc-question-2-analyzing-the-trends-in-fatalities-in-different-states" class="nav-link" data-scroll-target="#question-2-analyzing-the-trends-in-fatalities-in-different-states">Question 2: Analyzing the trends in fatalities in different states</a>
   <ul class="collapse">
   <li><a href="#introduction-2" id="toc-introduction-2" class="nav-link" data-scroll-target="#introduction-2">Introduction</a></li>
   <li><a href="#approach-1" id="toc-approach-1" class="nav-link" data-scroll-target="#approach-1">Approach</a></li>
-  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
-  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
+  <li><a href="#analysis-1" id="toc-analysis-1" class="nav-link" data-scroll-target="#analysis-1">Analysis</a></li>
+  <li><a href="#discussion-1" id="toc-discussion-1" class="nav-link" data-scroll-target="#discussion-1">Discussion</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -176,19 +178,55 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="question-1-are-there-any-patterns-in-the-magnitude-of-tornadoes-based-on-location-or-time-of-year">Question 1: Are there any patterns in the magnitude of tornadoes based on location or time of year?</h2>
 <section id="introduction-1" class="level3">
 <h3 class="anchored" data-anchor-id="introduction-1">Introduction</h3>
-<p>Understanding the variations in tornado intensity is vital for assessing their potential impact and devising effective disaster response plans. In this section, we explore the patterns in tornado magnitude concerning geographical location (states) and how they fluctuate across different times of the year. By examining these patterns, we aim to uncover insights that can aid in predicting and preparing for tornadoes of varying intensities, contributing to enhanced public safety and disaster management.</p>
+<p>Understanding the variations in tornado intensity is vital for assessing their potential impact and devising effective disaster response plans. In this section, we explore the patterns in tornado magnitude concerning geographical location (states) and how they fluctuate across different times of the year. The variables that are necessary to answer this question are “yr”- year in which the tornado occurred, “st”- the state in which the tornado occurred, “slat”- starting latitude, “slon”- starting longitude, “mag”- magnitude of the tornado.</p>
+<p>Analyzing whether certain regions are more prone to producing stronger tornadoes can contribute to a better understanding of tornado dynamics and the factors that influence their intensity. For instance, if there are regions where stronger tornadoes are more likely, it could lead to targeted preparedness efforts and resources being allocated to those areas. This question is therefore of great interest as it has practical implications for both disaster response and mitigation strategies, ultimately aiming to reduce the impact of tornadoes on communities and save lives.</p>
 </section>
 <section id="approach" class="level3">
 <h3 class="anchored" data-anchor-id="approach">Approach</h3>
-<p>Understanding the dynamics of tornado magnitude is critical for assessing the severity of these natural disasters. In our analysis, we utilize essential variables such as tornado magnitude, states, and years. By focusing on these parameters, we aim to uncover patterns in tornado intensity across various states and seasons. To visualize these patterns, we employ geospatial visualization techniques, plotting the tornado magnitudes on a US map. Specifically, we select five states that exhibit high magnitude variations and plot tornado intensity for each of these states. Through these plots, we aim to identify distinct trends in tornado magnitude, allowing for a deeper understanding of how tornadoes manifest in these states.</p>
-<p>Tornado intensity can vary significantly across geographical regions and throughout the year. To delve deeper, we analyze the tornado data with a focus on the Enhanced Fujita (EF) scale, examining how the scale manifests concerning state-level occurrences and seasonal fluctuations. By observing the patterns in tornado intensity and their geographic spread, we can derive insights into the regions most susceptible to severe tornadoes. This multifaceted approach aims to uncover valuable insights into tornado behaviors and their potential implications for disaster preparedness and response strategies.</p>
+<p>To investigate potential patterns in the magnitude of tornadoes based on location and time of the year, we will employ three distinct types of plots: two line plots and a grouped bar plot and an animation consisting of density plot. The first line plot will depict the trends in mean tornado magnitude over the years, offering insights into potential shifts in the intensity of tornadoes gradually from 1950 to 2022. The second line plot shows the count of tornadoes over time with a trend line(using geom_smooth) to show the overall trend in the plot. The use of a line plots allows for a clear visualization of any long-term variations in tornado magnitudes.</p>
+<p>Additionally, we utilized a grouped/stacked bar plot to illustrate the distribution of tornado magnitudes across the different 12-year intervals. In this plot for each 12 year interval it shows the tornadoes occcurences and the count of the tornadoes for each EF scale rating(from 0 to 5). This plot is suitable for comparing categorical data across multiple groups, as it provides a visual comparison of tornado occurrences within distinct magnitude categories.</p>
+<p>By combining these two types of plots, we aim to comprehensively explore potential patterns in tornado magnitude based on both temporal and categorical factors. This approach allows for a nuanced analysis, considering both the annual trends and the broader distribution across specified time intervals.</p>
+<p>Then lastly for the animation of contour plots, we first grouped the data state-wise and summarized the standard deviation of magnitudes for each of the US states. Then we selected top 5 states from it and used it for generating contour maps for tornadoes in the selected states (Tennessee, Alabama, Iowa, Kansas, and North Dakota) over distinct periods (1950-1961, 1962-1973, 1974-1985, 1986-1997, 1998-2009, 2010-2022). This allows us to observe how tornado density patterns have evolved over these years. We choose the contour map plot as we have spatial data and contour plots are best to showcase the density patterns.</p>
+</section>
+<section id="analysis" class="level3">
+<h3 class="anchored" data-anchor-id="analysis">Analysis</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/lineplots-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/lineplots-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/barplotQ1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/finalQ1plot-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/finalQ1plot-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/finalQ1plot-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="discussion" class="level3">
+<h3 class="anchored" data-anchor-id="discussion">Discussion</h3>
+<p>The first set of visualizations, that is the line plot, is focused on tornado magnitude trends over the years. We observed fluctuations in the mean tornado magnitude per year, with peaks and valleys throughout the decades. We can see that the intensity of tornadoes decreased as we moved forward from 1950 to 2022 gradually. From the second line plot we can see that the count of tornadoes increased over time slightly. The trend line in the plot shows this increase effectively from 1950 to 2022. So, from these two line plots, we could say that there were few but intense tornado in the late 1900s while there were more but less intense tornadoes today.</p>
+<p>Furthermore, examining tornado magnitudes in different categories (EF scale) across distinct year categories (1950-1961, 1962-1973, 1974-1985, 1986-1997, 1998-2009, 2010-2022) through a stacked bar plot illuminated the distribution of tornado intensities over time. It interprets that as the time progressed the intensity of the tornadoes decreased, but the number of tornadoes increased.</p>
+<p>For the contour maps, we can see the variations in tornado density for the states “Alabama” “Iowa”, “Kansas”,“North Dakota”, “Tennessee”.</p>
 </section>
 </section>
 <section id="question-2-analyzing-the-trends-in-fatalities-in-different-states" class="level2">
 <h2 class="anchored" data-anchor-id="question-2-analyzing-the-trends-in-fatalities-in-different-states">Question 2: Analyzing the trends in fatalities in different states</h2>
 <section id="introduction-2" class="level3">
 <h3 class="anchored" data-anchor-id="introduction-2">Introduction</h3>
-<p>Tornadoes, besides causing property damage, often result in injuries and fatalities, making an analysis of their impact crucial. In this section, we focus on understanding the trends in fatalities caused by tornadoes across various states in the United States. To address this query, it is essential to focus on specific components of the dataset, such as the year, state, and fatality counts.</p>
+<p>Tornadoes, besides causing property damage, often result in injuries and fatalities, making an analysis of their impact crucial. In this section, we focus on understanding the trends in fatalities caused by tornadoes across various states in the United States. To address this query, it is essential to focus on specific components of the dataset, such as the yr-the year in which the tornado occurred, st- state in which the tornado occurred, and fat- deaths caused by that tornado.</p>
 <p>Firstly, understanding how fatality rates have changed over time provides crucial insights into the effectiveness of disaster preparedness and response efforts. It helps in evaluating the impact of various safety measures and policies implemented over the years. Additionally, as climate patterns continue to shift, studying these trends can offer valuable information for adapting strategies to mitigate the human toll of tornadoes in the future. Ultimately, this analysis holds the potential to save lives and enhance the resilience of communities in the face of these natural disasters.</p>
 </section>
 <section id="approach-1" class="level3">
@@ -196,22 +234,24 @@ ul.task-list li input[type="checkbox"] {
 <p>To address the question regarding trends in tornado-related fatalities, we employed an area plot and a bar plot. Firstly, we utilized a area plot to visualize the general trend in the total number of fatalities over the years from 1950 to 2022. An area chart provides an effective representation of cumulative or aggregated data over a continuous range, making it ideal for showcasing trends and variations in a data over time. It allows us to observe the cumulative total of fatalities increasing over the years. Each point on the chart represents the cumulative sum of fatalities up to a specific year, providing a clear visual indication of how the fatality count has evolved.</p>
 <p>From the area chart we saw that there are 2 peaks in the years 1953 and 2011. So, we employed a bar plot to investigate the total fatalities for those years in each state. The horizontal bar chart excels at facilitating comparisons between different categories, which in this case, are the individual states. Each bar on the chart corresponds to a specific state. The length of each bar directly corresponds to the number of fatalities, longer bars signify higher fatality counts, allowing viewers to readily grasp the relative impact of tornado-related incidents across different states</p>
 </section>
-<section id="analysis" class="level3">
-<h3 class="anchored" data-anchor-id="analysis">Analysis</h3>
+<section id="analysis-1" class="level3">
+<h3 class="anchored" data-anchor-id="analysis-1">Analysis</h3>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/Q2code-1.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/Q2plot1-1.png" class="img-fluid" width="672"></p>
 </div>
+</div>
+<div class="cell">
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/Q2code-2.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/Q2plot2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="discussion" class="level3">
-<h3 class="anchored" data-anchor-id="discussion">Discussion</h3>
+<section id="discussion-1" class="level3">
+<h3 class="anchored" data-anchor-id="discussion-1">Discussion</h3>
 <p>In the given analysis, we observe notable trends in tornado-related fatalities over the years. The area plot depicting total fatalities over the years shows a fluctuating pattern, with peaks and valleys in different periods. There was a peak in the year 1953 resulting in a total of almost 500 deaths in that year. After this they were random peaks and troughs from 1960’s to 2010 . There was another noticeable increase in fatalities, with a peak in 2011, it is similar to the peak that occurred in 1953. In recent years, from the mid-2010s, there seems to be a slight uptick in fatalities.</p>
 <p>The horizontal bar chart illustrates the total fatalities for select years (1953 and 2011) both years combined across various states. It reveals significant disparities in fatality counts, with some states experiencing much higher casualties than others. For instance, Alabama, Missouri and Texas are the top 3 states that has the highest death counts.</p>
-<p>These trends may be influenced by various factors, including local infrastructure, disaster preparedness, and population density. Additionally, meteorological conditions and geographical features could play a role in the frequency and severity of tornado events in different states. Further studies could delve into these potential drivers to provide a more comprehensive understanding of the observed trends.</p>
+<p>The data looks the way it does is most probably because in 1953, the deadliest tornado in the United States occurred on May 11 in Waco, Texas.In 2011, the deadliest tornado occurred on April 27. This outbreak produced a series of extremely destructive tornadoes across several states, including Alabama, Mississippi, Tennessee, and Georgia. The most devastating tornado was the EF5 tornado that struck Tuscaloosa, Alabama. The observed trends in the analysis align with the historical data for these years, with 1953 and 2011 standing out as particularly deadly years due to these catastrophic tornado events. The significant impact of these specific tornadoes in Alabama and Texas likely contributes to the notable spikes in fatality counts observed in the analysis.</p>
 
 
 </section>

@@ -162,18 +162,17 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Question 1</strong>: Are there any patterns in the magnitude of tornadoes based on location or time of year?</p>
 <p>Analysis Plan:</p>
 <p>Variables Involved:</p>
-<p>- mag: Magnitude of tornadoes i.e.&nbsp;F scale or EF scale(EF - Enhanced Fujita scale is being used from 2007).</p>
-<p>- st: Two-letter postal abbreviation for the states</p>
-<p>- yr: Year.</p>
-<p>We first group the data state-wise using ‘st’ variable and year-wise using ‘yr’ variable, then calculate the summary statistics on both the grouped data separately. From the obtained results we check for any particular states having undergone multiple variations over time and select a few such states along with few other states for further plotting. Then for each of these states we plan to show the variations in tornado intensities over the course of time using alley maps visualization.</p>
-<p><strong>Question 2:</strong> How many tornadoes affected multiple states, and which states are most commonly affected together?</p>
+<p>- “mag”: [integer] Magnitude of tornadoes (F scale or EF scale).</p>
+<p>- “st”: [character] Two-letter postal abbreviation for the states</p>
+<p>- “yr”: [integer] Year (range: 1950 - 2022).</p>
+<p>We first group the data state-wise using “st” variable and year-wise using “yr” variable, then calculate the summary statistics on both the grouped data separately. From the obtained results we check for any particular states having undergone multiple variations over time and select a few such states along with few other states for further plotting. Then for each of these states we plan to show the variations in tornado intensities over the course of time using alley maps visualization.</p>
+<p><strong>Question 2:</strong> What are the trends in the frequency of tornado-related fatalities over the years for different states in the USA?</p>
 <p>Analysis Plan:</p>
 <p>Variables Involved:</p>
-<p>- om: Tornado number (ID).</p>
-<p>- ns: Number of states affected by the tornado.</p>
-<p>- sn: State number for this row.</p>
-<p>- st: Two-letter postal abbreviation for the state.</p>
-<p>To analyze tornadoes impacting multiple states in the dataset, we’ll first filter for tornadoes affecting more than one state (ns &gt; 1). Then, for each tornado (om), we’ll identify the unique combinations of states (st) it affected. By counting the occurrence frequency of these combinations, we can discern patterns. To visualize these co-occurrence patterns effectively, we can employ heat-maps or barplots, showcasing how often specific state combinations experience tornadoes. This approach allows us to gain insights into the multi-state impact of tornadoes and uncover recurring patterns in the data.</p>
+<p>- “fat”: [integer] Number of fatalities.</p>
+<p>- “yr”: [integer] Year of the tornado occurred.</p>
+<p>- “st”: [character] Two-letter postal abbreviation for the state.</p>
+<p>To analyze trends in fatalities caused by tornadoes across different states, we will focus on the variables “fat” (number of fatalities), “yr” (year), and “st” (state). First, we will aggregate the fatality data, summarizing the total fatalities for each year. Next, we will use an line/area plot to see in which years more deaths occurred. We will select those years and plot an horizontal bar plot for each state showing the number of deaths in those particular years. This approach will provide valuable insights into the trends of tornado-related fatalities in key states, aiding in disaster response planning and resources allocation.</p>
 
 
 </section>
