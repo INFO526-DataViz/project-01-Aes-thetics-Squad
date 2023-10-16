@@ -243,7 +243,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
 ```{r loading_data2, warning=FALSE, echo=FALSE, message=FALSE}
-tornadoes <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-05-16/tornados.csv', show_col_types = FALSE)
+tornadoes <- read_csv('data/tornados.csv')
 tornadoes <- na.omit(tornadoes)
 ```
 
@@ -256,21 +256,22 @@ tornadoes$state_name <- state_mapping[tornadoes$st]
 ```
 
 ```{r Q2plot1, message=FALSE, warning=FALSE, echo=FALSE}
+#Calculating the total fatalities
 total_fatalities <- aggregate(fat ~ yr, data = tornadoes, sum)
 
 # creating an area plot
 ggplot(total_fatalities, aes(x = yr, y = fat)) +
-  geom_area(fill="#8B0000")+
+  geom_area(fill="#8B0000") +
   geom_line(color="#8B0000") +
   labs(title = "Total Fatalities Over the Years",
        x = "Year",
        y = "Total Fatalities") +
   scale_x_continuous(
     breaks = seq(1950, 2022, by = 10),
-    limits = c(1950, 2022))+
-  theme_minimal()+
+    limits = c(1950, 2022)) +
+  theme_minimal() +
   annotate("text",x=1955,y=500, label= "1953", color = '#8B0000',
-           size = 4)+
+           size = 4) +
   annotate("text",x=2014,y=510, label= "2011", color = '#8B0000',
            size = 4)
 ```
@@ -282,17 +283,17 @@ total_fatalities <- tornadoes |>
   arrange(desc(fat)) |>
   filter(fat>0)
 
-#creaing a bar plot
+#creaing a horizontal bar plot
 ggplot(total_fatalities, aes(x = reorder(state_name, fat), y = fat)) +
   geom_bar(stat="identity",fill="#8B0000") +
   geom_text(aes(label=fat), vjust=0.2,hjust=0,size=3) +
-  coord_flip()+
+  coord_flip() +
   labs(x=NULL,
        y=NULL,
        title = "Total fatalities",
        subtitle="In the years 1953 and 2011",
        caption = "States not listed didnot record any deaths by tornadoes")+
-  theme_minimal()+
+  theme_minimal() +
   theme(
     panel.grid.major.x = element_blank(),
     panel.grid.minor.x = element_blank(),
@@ -306,4 +307,4 @@ In the given analysis, we observe notable trends in tornado-related fatalities o
 
 The horizontal bar chart illustrates the total fatalities for select years (1953 and 2011) both years combined across various states. It reveals significant disparities in fatality counts, with some states experiencing much higher casualties than others. For instance, Alabama, Missouri and Texas are the top 3 states that has the highest death counts.
 
-These trends may be influenced by various factors, including local infrastructure, disaster preparedness, and population density. Additionally, meteorological conditions and geographical features could play a role in the frequency and severity of tornado events in different states. Further studies could delve into these potential drivers to provide a more comprehensive understanding of the observed trends.
+The data looks the way it does is most probably because in 1953, the deadliest tornado in the United States occurred on May 11 in Waco, Texas.In 2011, the deadliest tornado occurred on April 27. This outbreak produced a series of extremely destructive tornadoes across several states, including Alabama, Mississippi, Tennessee, and Georgia. The most devastating tornado was the EF5 tornado that struck Tuscaloosa, Alabama. The observed trends in the analysis align with the historical data for these years, with 1953 and 2011 standing out as particularly deadly years due to these catastrophic tornado events. The significant impact of these specific tornadoes in Alabama and Texas likely contributes to the notable spikes in fatality counts observed in the analysis.
