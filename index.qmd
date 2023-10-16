@@ -151,7 +151,7 @@ ggplot() +
     geom_contour(data=density_df, aes(x = x, y = y, z = density, color = after_stat(level)), bins = 25) +
     scale_color_gradient(low = "blue", high = "red1", limits = c(0.005, 0.020), 
                          oob = scales::squish, name = "Density") +
-    labs(title = plot_title) +
+    labs(title = plot_title, x = "Longitude", y = "Latitude") +
     geom_polygon(data = us_map, aes(x = long, y = lat, group = group), color = "black", fill = NA) +
     borders("state", colour = "black") +
     theme_minimal() +
@@ -198,14 +198,14 @@ selected_images <- file.path("images",selected_images)
 # Creating an animated GIF
 ani.options(ani.width = 1000, ani.height = 1000, res = 1020, "animated_plot.gif")
 
-saveGIF({
+invisible(saveGIF({
   for (img_path in selected_images) {
     img <- readPNG(img_path)
     plot(0, 0, type = "n", xlim = c(0, 1), ylim = c(0, 1), 
-         xlab = "", ylab = "", main = "Tornado Occurence Density Trends", cex.main = 3)
+         xlab = "", ylab = "", main = "Trends in Tornado Occurences", cex.main = 3)
     rasterImage(img, 0, 0, 1, 1)
   }
-}, interval = 1, movie.name = "animated_plot.gif")
+}, interval = 1, movie.name = "animated_plot.gif"))
 
 ```
 
