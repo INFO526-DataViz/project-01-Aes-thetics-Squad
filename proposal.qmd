@@ -47,7 +47,7 @@ Variables Involved:
 
 \- "yr": \[integer\] Year (range: 1950 - 2022).
 
-We first group the data state-wise using "st" variable and year-wise using "yr" variable, then calculate the summary statistics on both the grouped data separately. From the obtained results we check for any particular states having undergone multiple variations over time and select a few such states along with few other states for further plotting. Then for each of these states we plan to show the variations in tornado intensities over the course of time using alley maps visualization.
+We first group the data state-wise using "st" variable and year-wise using "yr" variable, then calculate the summary statistics on both the grouped data separately. From the obtained results we check for any particular states having undergone multiple variations over time and select a few such states along with few other states for further plotting. Then for each of these states we plan to show the variations in tornado densities over the course of time using contour maps visualization.
 
 **Question 2:** What are the trends in the frequency of tornado-related fatalities over the years for different states in the USA?
 
