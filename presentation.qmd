@@ -72,6 +72,8 @@ knitr::opts_chunk$set(
 
 4.  **Geospatial Details**: Offers geospatial info like coordinates, length, and width for exploring tornado geography.
 
+## 
+
 ### Question 1: Are there any patterns in the magnitude of tornadoes based on location or time of year?
 
 ## **Plot 1**
